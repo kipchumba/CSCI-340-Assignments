@@ -1,0 +1,51 @@
+Test 1: Constructor and build function
+
+Test 2: Postorder traversal
+
+Original expression string: 3.5 2.7 + -4.7 2.64 * -
+Postorder traversal of t1:  3.5 2.7 + -4.7 2.64 * - 
+
+Test 3: Evaluate tree
+
+Value of expression represented by t1 = 18.608
+
+Test 4: Inorder traversal
+
+Inorder traversal of t1: ( ( ( 3.5 ) + ( 2.7 ) ) - ( ( -4.7 ) * ( 2.64 ) ) ) 
+
+Test 5: Level-by-level traversal
+
+Level-by-level traversal of t1: - + * 3.5 2.7 -4.7 2.64 
+Test 6: Copy constructor
+
+Postorder traversal of t2: 3.5 2.7 + -4.7 2.64 * - 
+
+Test 7: Clear t2
+
+Level-by-level traversal of t2: 
+Test 8: Build new tree with variables
+
+Original expression string: A 47.2 + B - 36 C / *
+Postorder traversal of t2:  A 47.2 + B - 36 C / * 
+
+Test 9: Printing variables of t2
+
+A 10 B 25 C 2 
+
+Value of expression represented by t2 = 579.6
+
+Test 10: Assignment operator
+
+Postorder traversal of t3:  A 47.2 + B - 36 C / * 
+
+Test 11: Evaluate tree containing variables
+
+Value of expression represented by t3 = 579.6
+
+Test 12: Set existing variables to new values
+
+Printing variables of t3
+
+A 8 B 25 C 3 
+
+Value of expression represented by t3 = 362.4

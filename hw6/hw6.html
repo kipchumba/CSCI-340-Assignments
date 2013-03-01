@@ -1,0 +1,290 @@
+<HTML>
+<HEAD>
+<TITLE>CSCI 340 Spring 2010 Assignment 6</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><H1>CSCI 340 Assignment 6</H1></CENTER>
+<HR>
+
+<p><i>Updated 4/21/10 to clarify a couple of items. To match the
+answers provided and provide realistic times, the sort must be
+sequence-preserving, I/O should happen outside of the sort functions,
+and you need to use a fresh copy of the input vector for each sort.
+Also, the files and a couple of programming tips have been
+provided.</i></p>
+
+<H2>Purpose</H2>
+
+<P>This assignment includes the STL heap and priority queue data
+structures, and the heapsort and quicksort algorithms. Similar to last
+week's, it also incorporates a review of template classes and a
+function object.</P>
+
+<H2>Assignment</H2>
+
+<P>For this assignment you will sort an input file using your own
+versions of heapsort and quicksort plus several STL sorts, comparing
+the CPU time.</P>
+
+<H2>Program</H2>
+
+<H3>Driver</H3>
+
+Your main program should do the following things:
+
+<OL>
+
+<LI>Load the input file into a vector. You may only read the file once.</LI>
+
+<LI>Load the answer file into a vector for comparison purposes.</LI>
+
+<LI>Create a function object for case-independent comparison.</LI>
+
+<LI>For each of the following sorting methods, do the following three
+things:</LI>
+
+
+  <UL>
+
+  <LI>Sort the data using a stable (sequence-preserving) sort. See
+  below for a hint on stable sorting.</LI>
+
+  <LI>Print the CPU time. Numbers should have a meaningful title and
+  be aligned on the decimal point.</LI>
+
+  <LI>Compare your sorted vector to the answer vector by using the
+  appropriate comparison operator (not via a loop). Remember that you
+  can say <CODE>v1 == v2</CODE> because the STL provides appropriate
+  overloaded operators for you.</LI>
+
+  </UL>
+
+</OL>
+
+<p>Sort the data using each of the following sorting methods. Note
+that only methods a) and b) require writing your own code. For the others,
+you only need to call the appropriate STL functions.
+
+<OL type="a">
+
+<LI>Sort the data using the heapsort algorithm you have written below.</LI>
+
+<LI>Sort the data using a quicksort algorithm that you have written.</LI>
+
+<LI>Sort the data using the STL <CODE>make_heap</CODE>
+and <CODE>sort_heap</CODE> algorithms.
+
+<LI>Sort the data by loading the items into an
+STL <CODE>priority_queue</CODE>, then retrieving them.
+
+<LI>Sort the data by calling the STL <CODE>stable_sort</CODE> algorithm.
+
+</OL>
+
+<p>Use a fresh copy of the input vector for each sort so that your
+times are fair. Remember that you can copy a vector by saying <CODE>v1
+= v2</CODE>, since the STL provides the appropriate overloaded functions.</p>
+
+<H3>Heapsort</H3>
+
+<P>Implement the following template functions in a header file:</P>
+
+<H3><CODE>template &lt;class T, class Pred&gt;<br>
+void build_heap(vector&lt;T&gt; &, vector&lt;T&gt; &, Pred);</CODE></H3>
+
+<P>This function should read items from the input <CODE>vector</CODE>
+and build a heap structure. The first argument to this function is a
+reference to the input <CODE>vector</CODE>. The second argument is a
+reference to a <CODE>vector</CODE> for storing the heap structure. The
+last argument is a predicate (a Boolean function or class containing
+one) for case-independent ascending sort.</P>
+
+<P>The function should iterate over the input vector, inserting them
+one at a time into the heap <CODE>vector</CODE>. To insert an
+individual item into the heap, call the <CODE>insert()</CODE> function
+described below.</P>
+
+<H3><CODE>template &lt;class T, class Pred&gt;<br>
+void heapsort(vector&lt;T&gt; &, vector&lt;T&gt; &, Pred);</CODE></H3>
+
+<P>This function should retrieve items from the heap structure and
+insert them in sequence into the result vector. The first argument to
+this function is a reference to a
+<CODE>vector</CODE> that contains the heap structure. The second
+argument is a reference to a <CODE>vector</CODE> containing the sorted
+results. The last argument is the same predicate as used earlier.</P>
+
+<P>The function should remove items from the heap and print them until
+only one item is left in the heap (the sentinel item that occupies the
+first vector position). An individual item can be removed from the
+heap by calling the <CODE>remove()</CODE> function described
+below.</P>
+
+<H3><CODE>template &lt;class T, class Pred&gt;<br>
+void insert(vector&lt;T&gt; &, const T &, Pred);</CODE></H3>
+
+<P>This function is used to insert an item (the second argument) into
+a heap (the first argument) with the given order (the third
+argument). The item can be inserted at the back of the heap using
+the <CODE>vector</CODE> method <CODE>push_back()</CODE>. After
+insertion, the function <CODE>upheap()</CODE> (see below) should be
+called to move the newly inserted item up the heap to its proper
+location.</P>
+
+<H3><CODE>template &lt;class T, class Pred&gt;<br>
+T remove(vector&lt;T&gt; &, Pred);</CODE></H3>
+
+<P>This function is used to retrieve a single item from the heap
+structure (the first argument) with the given order (the second
+argument). One possible implementation of this function's logic is as
+follows: Swap the first, non-sentinel item in the heap with the last
+item in the heap. Obtain the value of the last item in the heap using
+the <CODE>vector</CODE> method <CODE>back()</CODE> and save it to be
+returned later.  Use the <CODE>vector</CODE>
+method <CODE>pop_back()</CODE> to remove the last item from the heap
+structure. Call the function <CODE>downheap()</CODE> to move the first
+non-sentinel item in the heap down the heap structure to its proper
+location.  Finally, return the item retrieved earlier to the calling
+function.</P>
+
+<H3><CODE>template &lt;class T, class Pred&gt;<br>
+void upheap(vector&lt;T&gt; &, unsigned int, Pred);</CODE></H3>
+
+<P>This function is used to move an item at a given starting index
+(the second argument) up a heap structure (the first argument) with
+the given order (the third argument) until it reaches its proper
+location. The item should be compared (and swapped as necessary) with
+its parent in the heap until the given order has been satisfied. Note
+that for an item at index <CODE>k</CODE> in the vector, the item's
+parent in the heap will be located at index <CODE>k / 2</CODE>.</P>
+
+<P>To make the code for <CODE>upheap()</CODE> function easier, it is
+easiest to create the heap vector with a starter element. This
+sentinel element will always occupy the first slot of the vector
+(index 0); it should not be considered to be part of the heap; and it
+should never be removed from the vector.</P>
+
+<H3><CODE>template &lt;class T, class Pred&gt;<br>
+void downheap(vector&lt;T&gt; &, unsigned int, Pred);</CODE></H3>
+
+<P>This function is used to move an item at a given starting index
+(the second argument) up a heap structure (the first argument) with
+the given order (the third argument) until it reaches its proper
+location. The item should be compared (and swapped as necessary) with
+its appropriate child in the heap until the given order has been
+satisfied.
+
+<P>Note that for an item at index <CODE>k</CODE> in the vector, the
+item's left child in the heap will be located at index <CODE>2 *
+k</CODE> and its right child in the heap will be located at
+index <CODE>2 * k + 1</CODE>.</P>
+
+<H2>Programming tips</H2>
+
+<UL>
+
+<LI><p>The predicate should return <CODE>true</CODE> if the first
+argument is less than the second in the given order (i.e., in this
+case, according to a case-independent ascending comparison). For an
+example, see the <CODE>sort2.cpp</CODE> program in the course
+directory.</p></LI>
+
+<LI><p>The easiest way to obtain stable sorting is to number the items
+as you read them. Then your comparison function should do the
+following: if two items have the same key, consider the one with the
+lower sequence number to be the lower one. Here are two ways you can
+implement that:
+
+  <ul>
+
+  <li>A vector of small objects is one good data structure. The class
+  should contain the input string and its sequence number. It does not
+  need any dynamic memory. If you use that solution, then you will
+  have another <CODE>Obj.h</CODE> file to submit and another entry in
+  your <CODE>makefile</CODE>. To compare against the answer vector,
+  you can use <CODE>transform</CODE>, <CODE>for_each</CODE>, or a
+  loop to strip off the sequence numbers.</li>
+
+  <li>Another approach is to build longer strings from the input
+  strings as you read them, e.g., convert <CODE>xyz</CODE>
+  to <CODE>xyz&lt;blank&gt;12345</CODE>, where &lt;blank&gt; is a
+  space. Note that the numbers must be filled out to five digits in
+  order for the comparison to work. If you use this solution, you can
+  use string functions to strip off the sequence numbers after the sort.</li>
+
+  </ul>
+
+  </LI>
+
+</UL>
+
+<H2>Standards</H2>
+
+<UL>
+<LI>Use good object-oriented practices. Methods that do not alter the
+class data should be declared <CODE>const</CODE>. Objects should
+normally be passed by reference to save on overhead; if a method does
+not alter the object, pass a reference to
+<CODE>const</CODE> data rather than passing the object by value.</P></LI>
+
+<LI>Remember that any auxiliary variables you define, such as
+iterators, should be local to the function they are used in. They
+should not be class members or global variables. Similarly, variables
+should not be defined inside a loop.</LI>
+
+<LI><P>You must have a makefile with a rule for compiling an object
+file for each source code file. A linking rule should link all of
+your object files together to create one executable. The name of your
+final executable should be <CODE>hw6.exe</CODE>. You should also
+provide a "clean" rule.</P></LI>
+
+<LI>Your program must follow <i>all</i> the documentation standards
+listed on the course web site.</P></LI>
+
+<LI><P>Don't forget to get rid of all compiler warnings when the 
+<CODE>-Wall</CODE> compilation option is used.</P></LI>
+
+<LI><P>As always, programs that do not compile on <KBD>turing</KBD>
+automatically receive 0 points.</P></LI>
+      
+</UL>
+
+
+<H2>Submission</H2>
+
+<UL>
+
+<LI><P>Your main program should be entitled <CODE>hw6.cpp</CODE>.</p></LI>
+
+<LI><P>Your heapsort template functions should be stored in the header
+file <CODE>heapsort.h</CODE> and your quicksort functions
+in <CODE>quicksort.h</CODE>.</P></LI>
+ 
+<LI>Execute your program as <CODE>./hw6.exe rwords.txt swords.txt</CODE>.</P></LI>
+
+<LI><p>A list of words to sort is available at <A HREF="rwords.txt">rwords.txt</A>.
+</P></LI>
+
+<LI><p>You can test your output by comparing it to the output of the
+Unix <CODE>sort</CODE> command. For your convenience, here is a copy
+of the output: <A HREF="swords.txt">swords.txt</A>.</P></LI>
+
+<LI>If you want to run the Unix <CODE>sort</CODE> command yourself,
+e.g., for a smaller test file, you need to issue the <CODE>bash</CODE>
+commands <CODE>LC_ALL=C</CODE> and <CODE>export LC_ALL</CODE>, or
+just <CODE>unset LC_ALL</CODE>, to get an ASCII sort instead of an
+English-language sort. Then use <CODE>-f</CODE> ("fold") for
+case-independence and <CODE>-s</CODE> for stable sorting. (Even if you
+use case-independence, the English-language sort puts special
+characters such as the apostrophe and ampersand in unusual places.)
+
+<LI><P>Submit your project using mailprog.340.  Submit the files you
+have written,
+i.e., <CODE>hw6.cpp</CODE>, <CODE>heapsort.h</CODE>, <CODE>quicksort.h</CODE>,
+and your <CODE>makefile</CODE>.</P></LI>
+
+</UL>
+
+</BODY>
+</HTML>

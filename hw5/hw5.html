@@ -1,0 +1,441 @@
+<HTML>
+<HEAD>
+<TITLE>CSCI 340 Spring 2010 Assignment 5</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><H1>CSCI 340 Assignment 5</H1></CENTER>
+<HR>
+
+
+<H2>Purpose</H2>
+
+<P>This assignment includes a review of C++ template classes, the STL
+<CODE>list</CODE> class, the concept of function objects, and the hash
+table data structure.</P>
+
+<H2>Assignment</H2>
+ 
+<P>Implement a hash table as a C++ template class, using the division
+method for the hash function and separate chaining to resolve
+collisions. Then write a program that uses your hash table class to
+implement a spell-checking dictionary.</P>
+
+<H2>Hash Table Implementation</H2>
+
+<P>You will need to write the header files for two classes:
+The <CODE>StringHashKey</CODE> class is a function object that
+converts a C++ string into an integer key, and
+the <CODE>HashTable</CODE> class implements a hash table using the
+division method and separate chaining. The data for the hash table
+will be stored in a STL <CODE>vector</CODE> of
+STL <CODE>list</CODE>s.</P>
+
+<H3><CODE>class StringHashKey</CODE></H3>
+
+<P>The <CODE>StringHashKey</CODE> class is used to create a function
+object that converts a string key to an integer key. This class has no
+data members and a single public method, the overloaded
+operator <CODE>()</CODE>. The method will take a reference to a
+constant string as its single parameter and return an integer. The
+method should convert the string parameter into an
+integer. There are a number of possible ways to accomplish this; the
+logic for one technique is outlined in the pseudocode below:</P>
+
+<PRE>
+<I>set an integer sum to 0
+for each character in the string
+   multiply the sum times 8, then add the value of the current string character
+   if the result is greater than 2**27, calculate the remainder mod 2**27
+</i>
+</pre>
+ 
+<H3><CODE>class HashTable</CODE></H3>
+
+<P>The <CODE>HashTable</CODE> class implements a hash table. This will
+be a template class that takes two parameters. The first parameter is
+the data type of the items to be stored in the hash table. The second
+parameter is a function object to convert an item of the type being
+stored into an integer key that can be hashed. The definition for
+the <CODE>HashTable</CODE> class should be placed in the
+<CODE>HashTable.h</CODE> header file. Because this is a template class, 
+the code for the methods of the class should also be placed in the 
+header file.</P>
+
+<P>A <CODE>HashTable</CODE> contains four data members. The first is an
+integer that contains the number of pointers to linked lists in the hash
+table; these pointers represent the buckets of the hash table. The second
+is an integer that contains the number of data items currently stored in
+the hash table. The third is a function object of the type of the second
+template parameter which will convert a data item to an integer hash key.  
+The fourth data member is the <CODE>vector</CODE> of linked-list buckets,
+which should be declared as follows:</P>
+
+<PRE>
+   vector &lt;list&lt;T&gt; &gt; buckets;
+</PRE>
+
+<P>where <CODE>T</CODE> is the first template class parameter. Note
+the space between the two &gt; symbols - it
+is <STRONG>required</STRONG>. Failure to include it will cause a
+syntax error.</P>
+
+<H3><CODE>HashTable</CODE> constructor</H3>
+
+<P>The constructor for the class should take a single parameter, an
+integer specifying the number of buckets. The constructor should set
+the number of buckets to this parameter, set the size to 0,
+and create the <CODE>vector</CODE> of buckets. You may need to use the
+member initialization syntax for the latter.</P>
+
+<P>Even though this class involves dynamic memory, you do not need to
+write a copy constructor, destructor, or overloaded assignment
+operator for it because all of the dynamically-allocated storage for
+the hash table is managed by the embedded STL container classes, which
+already have the appropriate methods implemented for them.</P>
+
+<H3><CODE>HashTable clear()</CODE> method</H3>
+
+<P>This method returns nothing and takes no parameters. It clears the
+hash table, releasing all of the dynamic memory associated with
+it. The method should reset the size to 0 and
+call the <CODE>clear()</CODE> method for the <CODE>vector</CODE> of
+buckets.</P>
+
+<H3><CODE>HashTable size()</CODE> method</H3>
+
+<P>This method takes no parameters. It returns the number of data
+items currently stored in the hash table.</P>
+
+<H3><CODE>HashTable bucketsUsed()</CODE> method</H3>
+
+<P>This method takes no parameters. It returns the number of buckets
+currently in use in the hash table, i.e., the number of non-empty lists.</P>
+
+<H3><CODE>HashTable maxLength()</CODE> method</H3>
+
+<P>This method takes no parameters. It returns the maximum length of
+any list currently in the hash table.</P>
+
+<H3><CODE>HashTable empty()</CODE> method</H3>
+
+<P>This method takes no parameters. It returns <CODE>true</CODE> if the hash table
+contains no data items; otherwise it returns <CODE>false</CODE>.</P>
+
+<H3><CODE>HashTable insert()</CODE> method</H3>
+
+<P>This method returns a Boolean value and takes a single parameter, a
+reference to a constant item of the first template parameter type (the
+item to insert). The method should "call" the hash key function
+object, passing it the item to insert. The integer returned by the
+function object should be divided by the number of buckets; the
+remainder is the hash value, which can be used as an index to a
+particular bucket in the <CODE>vector</CODE> of buckets. You should
+perform a linear search of the linked list associated with that
+bucket. If the item to be inserted is already present in the linked
+list, return
+<CODE>false</CODE>. Otherwise, insert the item into the list for that bucket, 
+increment the size of the hash table, and return <CODE>true</CODE>.</P>
+
+<H3><CODE>HashTable find()</CODE> method</H3>
+
+<P>This method returns a Boolean value and takes a single parameter, a
+reference to a constant item of the first template parameter type (the
+item to find). The method does not alter the hash table data. The
+method should "call" the hash key function object, passing it the item
+to insert. The integer returned by the function object should be
+divided by the number of buckets; the remainder is the hash value,
+which can be used as an index to a particular bucket in the
+<CODE>vector</CODE> of buckets. You should perform a linear search of
+the linked list associated with that bucket. If the item to be found
+is present in that bucket, return <CODE>true</CODE>; otherwise return
+<CODE>false</CODE>.</P>
+
+<H2>Program</H2>
+
+<P>In the second part of this assignment, you will write a main
+program that uses your hash table class. The main program will
+simulate the logic of the Linux utility <i>ispell</i>.</p>
+
+<p>The program will take three command line parameters: the number of
+buckets in the hash table, the name of the dictionary file, and a file
+of words to spell check.</p>
+
+<p>There are three possible outputs for each word:</p>
+
+<ul>
+
+<li>"OK" means that the word is in the dictionary.</li>
+
+<li>"Not found" means that the word is not in the dictionary
+and neither are any of its near misses.</li>
+
+<li>Otherwise, print a list of near misses in alphabetical order. Near
+misses are words in the dictionary that are similar to the input.
+The <i>ispell</i> program recognizes several types of near-misses:
+single-letter omissions, single-letter additions, transpositions of
+two neighboring letters, substitution of one letter for another, and
+two words run together. Your program should do the same. The easiest
+way to sort the possible corrections is to store them in
+a <CODE>list</CODE> of <CODE>string</CODE>s. Then you can use the
+<CODE>sort</CODE> member function of <CODE>list</CODE>.
+
+
+(The
+algorithm described below is a simplified form of the spelling
+algorithm used by most word processors today and first described
+in <A HREF="http://www.aclweb.org/anthology/C90-2036">Kernighan's
+COLING '90 paper</A>.)</li>
+
+</ul>
+
+<P>We will provide you with a file of about 25,000 words to use as a
+dictionary. You should test with a much smaller dictionary first. Read
+the dictionary file and add the words to a hash table of the specified
+number of buckets. Convert each word to lower case first.</p>
+
+<p>After the dictionary is loaded, print the following information
+about it, one per line, properly aligned:</p>
+
+<ul>
+<li>Number of entries</li>
+
+<li>Number of buckets in the hash table</li>
+
+<li>Number of buckets in use</li>
+
+<li>Average length of list (round to two decimal places)</li>
+
+<li>Maximum length of list</li>
+
+<li>Time needed to load the dictionary</li>
+
+</ul>
+
+</p>Then read the file specified in the second argument. Convert each
+word to lower case, then check to see whether it is in the dictionary.
+If so, it should print "ok".  If not, it should look for all possible
+near misses. If the program finds any near misses in the dictionary,
+it should print them in alphabetical order, four across. If not, it
+should print "not found". (Make sure you print the original word
+first!)</P>
+
+<P>To search for near misses, you need to generate every possible near
+miss and look for it in the dictionary. Specifically:</P>
+
+<UL>
+<LI>Construct every string that can be made by deleting one letter from the word. 
+(<CODE>n</CODE> possibilities, where <CODE>n</CODE> is the length of the word)</LI>
+
+<LI>Construct every string that can be made by inserting any letter of the alphabet 
+at any position in the string. (<CODE>26*(n+1)</CODE> possibilities)</LI>
+
+<LI>Construct every string that can be made by swapping two neighboring characters 
+in the string. (<CODE>n-1</CODE> possibilities)</LI>
+
+<LI>Construct every string that can be made by replacing each letter in the word 
+with some letter of the alphabet. (<CODE>26*n</CODE> possibilities, including 
+<CODE>n</CODE> times for replacing the letter by itself, which may be
+easier than trying to bypass this case)</LI>
+
+<LI>Construct every <EM>pair</EM> of strings that can be made by
+inserting a space into the word. (<CODE>n-1</CODE> pairs of words; you
+have to check separately in the dictionary for each word in the
+pair. The pair of words is a near miss only if both words are in the
+dictionary)</LI>
+
+</UL>
+
+<p>At the end of your program, print the time needed to spell check
+the file.</p>
+
+<H2>Programming Notes</H2>
+
+<UL>
+
+<LI><P>The declaration of an iterator for a container class that
+stores a generic template parameter data type requires the addition of
+the keyword <CODE>typename</CODE>, e.g.:</P>
+
+<PRE>
+typename list&lt;T&gt;::iterator iter;
+</PRE></LI>
+
+<LI><P>In your main program, the data type of your hash table dictionary will be 
+<CODE>HashTable&lt;string,StringHashKey&gt;</CODE>. Since this is rather lengthy, 
+you may want to use the <CODE>typedef</CODE> instruction to create a shorter
+alias for this data type to save on typing, e.g.:</P>
+
+<PRE>typedef HashTable&lt;string,StringHashKey&gt; NewName;</PRE>
+</LI> 
+
+<LI><P>Use STL algorithms wherever possible. For example, you can use
+the <CODE>transform</CODE> function to convert the input word to lower
+case. You can use <CODE>for_each</CODE> or another algorithm to
+calculate the hash key. You can use the STL <CODE>find</CODE>
+algorithm to search a linked list. You will have to refer to it
+as <CODE>stl::find</CODE> to avoid ambiguity with
+the <CODE>find</CODE> method of the hash table.</P></LI>
+
+<LI>This web site explains how to obtain CPU time:
+<A HREF="http://www.gnu.org/s/libc/manual/html_node/CPU-Time.html">
+CPU time calculation</A>. CLOCKS_PER_SEC is a constant defined in the
+#include. It is 1,000,000 on turing, which means that the system
+measures times to the nearest millionth of a second. That means that a
+total time less than one millionth of a second will appear to be
+0.</p>
+
+<p>In a real-world example, you want to keep the average length of an
+overflow chain less than 1, i.e., you want plenty of extra space in
+your hash table. We are trying this hash table with some
+unrealistically small sizes (e.g., 97) so you can see the huge time
+difference between a too-small hash table and a more realistic
+one.</p></li>
+
+<li><p>Here is an example of using a class variable in a template that
+will be filled in with the name of a function object at compile time:</p>
+
+<pre>
+
+template &lt;class T, class HF&gt;
+class HashTable
+   {
+    ...
+   };
+
+
+template &lt;class T, class HF&gt;
+HashTable&lt;T, HF&gt;::HashTable(int nb) : buckets(nb)
+  {
+    ...
+  }
+</pre>
+
+<p>You can define variables of type <CODE>T</CODE> or <CODE>HF</CODE>:</p>
+
+<pre>
+T my_vbl;
+HF my_hashfn;
+</pre>
+
+<p>The program that declares an instance of the class needs to provide
+actual values for the class variables, e.g.:</p>
+
+<pre>
+HashTable&lt;string, StringHash&gt; dictionary(bucket_count);
+</pre>
+
+<p>The variables <CODE>T</CODE> and <CODE>HF</CODE> in the class
+definition are filled in with your choices at compile time, just as an
+STL class like <CODE>list</CODE> might be instantiated
+as <CODE>list&lt;int&gt;</CODE> when you write your code. Remember that if a
+class is defined with a template, all of its members must use the same
+template. For an example of the syntax, see the following example from
+241:
+<A HREF = "http://faculty.cs.niu.edu/~freedman/241/link03-template-below.cpp">
+template example</A></LI>
+
+
+<li><p>The ":" in the example above is an example of member initialization
+syntax. You could initialize all your variables with this syntax if
+you prefer, e.g.: <CODE>buckets(nb), bucketsUsedCount(0),</CODE>...
+It's actually more efficient to do it that way. For a nested STL
+type like <CODE>vector<list></CODE>, it's required.</p></LI>
+
+<li><p>The purpose of declaring a function object and overloading the "()"
+operator is to let you use the normal calling sequence for a function
+whose name is a variable. For example, using the example above you could
+write <CODE>my_hashfn(input)</CODE>.</p></LI>
+
+</UL>
+
+      
+<H2>Standards</H2>
+
+<UL>
+<LI>Use good object-oriented practices. Methods that do not alter the
+class data should be declared <CODE>const</CODE>. Objects should
+normally be passed by reference to save on overhead; if a method does
+not alter the object, pass a reference to
+<CODE>const</CODE> data rather than passing the object by value.</P></LI>
+
+<LI>Remember that any auxiliary variables you define, such as
+iterators, should be local to the function they are used in. They
+should not be class members or global variables. Similarly, variables
+should not be defined inside a loop.</LI>
+
+<LI><P>You must have a makefile with a rule for compiling an object
+file for each source code file. A linking rule should link all of
+your object files together to create one executable. The name of your
+final executable should be <CODE>hw5.exe</CODE>. You should also
+provide a "clean" rule.</P></LI>
+
+<LI>Your program must follow <i>all</i> the documentation standards
+listed on the course web site.</P></LI>
+
+<LI><P>Don't forget to get rid of all compiler warnings when the 
+<CODE>-Wall</CODE> compilation option is used.</P></LI>
+
+<LI><P>As always, programs that do not compile on <KBD>turing</KBD>
+automatically receive 0 points.</P></LI>
+      
+</UL>
+
+
+<H2>Extensions</H2>
+
+<p>You can improve the performance of your program by using binary
+search instead of linear search. Another option would be to
+use <CODE>map</CODE>s to store the contents of the buckets. The STL
+makes it possible to try these changes with very little programming.</p>
+
+<H2>Submission</H2>
+
+<UL>
+
+<LI><p>A dictionary is available at <A HREF="dict.txt">dict.txt</A>.
+</P></LI>
+
+<LI><p>Here is a sample input <A HREF="words.txt">words.txt</A> to
+spell check. Here are three outputs showing the effect of the hash
+table size:
+<A HREF="hw5-out97.txt">hw5-out97.txt</A> 
+<A HREF="hw5-out997.txt">hw5-out997.txt</A> 
+<A HREF="hw5-out9973.txt">hw5-out9973.txt</A>.
+(Note that the format is not exactly what you have been requested to produce.)</p>
+
+<p>The word "assert" occurs three times in the output because
+"asssert" can be corrected to "assert" three ways depending on which
+'s' is deleted. The duplicates have been left in so that you can see
+whether your program is working correctly. In a real-world application
+you would delete the duplicates because they are not meaningful to the
+user.</p>
+
+<p>The output also shows some other spell-check issues that you would
+have to deal with to get a professional-quality program. The letters
+of the alphabet might occur in a document, and Lund is a city in
+Sweden, but that doesn't mean that "b lund" is a very likely
+correction for "blund." You could add rules to restrict the possible
+pairs of words, or you could do as most spell checkers do today, and
+sort the corrections by probability of occurrence.</P></LI>
+
+<p>Note that you need to hash the input, <i>not</i> do a linear (or
+binary) search through the dictionary, to get correct timings.</P></LI>
+
+<LI><p>Execute your program as <CODE>./hw5.exe
+buckets dictionary.txt words.txt</CODE>.</P></LI>
+
+<LI>Run your program 3 times, using 97, 997 and 9973 buckets,
+respectively. Make sure your output is the same except for the
+times. Compare the times.</P></LI>
+
+<LI><P>Submit your project using mailprog.340. Submit the 3 files you
+have written plus your makefile. There are only three
+(<CODE>hw5.cpp</CODE>, <CODE>HashTable.h</CODE>,
+and <CODE>StringHash.h</CODE>) because code for template classes and
+functions needs to be in the <CODE>.h</CODE> file.</P></LI>
+
+</UL>
+
+</BODY>
+</HTML>

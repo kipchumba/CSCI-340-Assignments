@@ -1,0 +1,591 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>Sorting</title>
+</head>
+<body>
+
+<h1>Sorting Algorithms:</h1>
+
+<h2>Selection Sort</h2>
+
+<ul>
+  <li>Assume the elements are numbered from 0...size-1</li>
+  
+  <li><p>Search the entire list and "select" the element with the smallest 
+  (largest) value and swap it with the element at the top of the list.</p></li>
+  
+  <li><p>Repeat until size-1 passes have been made through the list</p></li>
+</ul>
+
+<pre>Original:     8     6     34     2     51     32     21
+
+Pass 1:       <font color="#FF0000"><b>2</b></font>     6     34     8     51     32     21
+
+Pass 2:       <font color="#FF0000"><b>2     6</b></font>     34     8     51     32     21
+
+Pass 3:       <b><font color="#FF0000">2     6     8</font></b>     34     51     32     21
+
+Pass 4:       <font color="#FF0000"><b>2     6     8     21</b></font>     51     32     34
+
+Pass 5:       <font color="#FF0000"><b>2     6     8     21     32</b></font>     51     34
+
+Pass 6:       <font color="#FF0000"><b>2     6     8     21     32     34</b></font>     51
+</pre>
+
+<h3>PSEUDOCODE:</h3>
+<pre>TOP =&gt; subscript of the first element
+LAST =&gt; subscript of the last element
+SSF =&gt; subscript of the smallest element
+PTR =&gt; subscript to go through the array
+
+DO WHILE (TOP &lt; LAST)
+   PTR = TOP
+   SSF = TOP
+   DO WHILE (PTR &lt; LAST)
+      IF (AR[PTR] &lt; AR[SSF])
+         SSF = PTR
+      ENDIF
+      PTR = PTR + 1
+   ENDDO
+   SWAP AR[TOP] and AR[SSF]
+   TOP = TOP + 1
+ENDDO
+</pre>
+
+<p>Each loop will execute at most N (or size) times, therefore this sort is O(N<sup>2</sup>). 
+If the array is already sorted, the algorithm will still be O(N<sup>2</sup>).</p>
+
+<h2>Bubble Sort</h2>
+
+<ul>
+  <li>Assume the elements are numbered from 0...size-1</li>
+  
+  <li><p>Examine the elements at positions x and x+1. Put them in ascending 
+  (descending) order. No examine the elements at positions x+1 and x+2. Put them 
+  in ascending (descending) order. Repeat until the end of the list is reached.</p></li>
+  
+  <li><p>Repeat the process but limit the size of the list by 1 for each 
+  subsequent pass.</p></li>
+</ul>
+
+<pre>Original:     8     6     34     2     51     32     21
+
+Pass 1:       <font color="#FF0000"><b>6     8</b></font>     34     2     51     32     21
+
+              6     <font color="#FF0000"><b>8     34</b></font>     2     51     32     21
+
+              6     8     <font color="#FF0000"><b>2     34</b></font>     51     32     21
+
+              6     8     2     <font color="#FF0000"><b>34     51</b></font>     32     21
+
+              6     8     2     34     <font color="#FF0000"><b>32     51</b></font>     21
+
+              6     8     2     34     32     <font color="#FF0000"><b>21     51</b></font>
+
+              6     8     2     34     32     21     <b><u>51</u></b>
+
+Pass 2:       <font color="#FF0000"><b>6     8</b></font>     2     34     32     21     51
+
+              6     <font color="#FF0000"><b>2     8</b></font>     34     32     21     51
+
+              6     2     <font color="#FF0000"><b>8     34</b></font>     32     21     51
+
+              6     2     8     <font color="#FF0000"><b>32     34</b></font>     21     51
+
+              6     2     8     32     <font color="#FF0000"><b>21     34</b></font>     51
+
+              6     2     8     32     21     <u><b>34</b></u><b>     <u>51</u></b>
+</pre>
+
+<h3>PSEUDOCODE:</h3>
+
+<pre>I, J =&gt; subscripts to go through the array
+END =&gt; subscript of the last element
+FLAG =&gt; indicates that a swap has occurred (1 = yes, 0 = no)
+
+FLAG = 1
+DO WHILE (FLAG = 1  AND  END &gt; 0)
+   I = 0
+   J = 1
+   FLAG = 0
+   DO WHILE (J &lt;= END)
+      IF (AR[I] &gt; AR[J])
+         FLAG = 1
+         SWAP AR[I] and AR[J]
+      ENDIF
+      I = I + 1
+      J = J + 1
+   ENDDO
+   END = END - 1
+ENDDO
+</pre>
+
+<p>Each loop will execute at most N (or size) times, therefore this sort is O(N<sup>2</sup>). 
+If the array is already sorted, the algorithm will still be O(N<sup>2</sup>).</p>
+
+<h2>Insertion Sort</h2>
+
+<ul>
+  <li>Assume the elements are numbered from 0...size-1</li>
+  <li>Examine the element at position x and "insert" it in the correct sorted 
+  order in the list from 0 through x - 1.</li>
+  
+  <li><p>Repeat until x = size-1</p></li>
+</ul>
+
+
+<pre>Original:     8     6     34     2     51     32     21
+
+Pass 1:       <font color="#FF0000"><b>6     8</b></font>     34     2     51     32     21
+
+Pass 2:       <font color="#FF0000"><b>6     8     34</b></font>     2     51     32     21
+
+Pass 3:       <b><font color="#FF0000">2     6     8     34</font></b>     51     32     21
+
+Pass 4:       <font color="#FF0000"><b>2     6     8     34     51</b></font>     32     21
+
+Pass 5:       <font color="#FF0000"><b>2     6     8     32     34     51</b></font>     21
+
+Pass 6:       <font color="#FF0000"><b>2     6     8     21     32     34     51</b></font>
+</pre>
+
+<h3>PSEUDOCODE:</h3>
+
+<pre>LOW =&gt; subscript of the first element
+HIGH =&gt; subscript of the last element
+J, K =&gt; subscripts
+
+J = LOW + 1
+DO WHILE (J &lt;= HIGH)
+   K = J
+   DO WHILE (K &gt; LOW  AND  AR[K] &lt; AR[K-1])
+      SWAP AR[K] and AR[K-1]
+      K = K - 1
+   ENDDO
+   J = J + 1
+ENDDO
+</pre>
+
+<p>Each loop will execute at most N (or size) times, therefore this sort is O(N<sup>2</sup>). 
+If the array is already sorted, the algorithm will  be O(N).</p>
+
+
+
+<h2>Shell Sort</h2>
+
+<p>The shell sort examines and sorts every n<sup>th</sup> element of a
+list. This process continues with the (n+1)<sup>th</sup> elements of the
+list. Once all of the list elements have been examined one time, the
+value of n is decreased.</p>
+
+<p>The process starts over with the new value of n and continues until
+n becomes 1.</p>
+
+<p>Because the value of n is diminishing with each pass through the
+algorithm, the shell sort is known as a <b><i>diminishing increment
+sort</i></b>.</p>
+
+<pre>Initial n value: size / 2
+
+Subsequent n values: n / 2
+
+Original:     8     6     34     2     51     32     21
+
+n = 3         <b><font color="#FF0000">2</font>     <font color="#0000FF">6</font>     <font color="#008000">32</font>     <font color="#FF0000">8</font>     <font color="#0000FF">51</font>     <font color="#008000">34</font>     <font color="#FF0000">21</font></b>
+
+
+              2     6     32     8     51     34     21
+
+n = 1         2     6     8      21    32     34     51
+</pre>
+
+<h3>Implementation:</h3>
+
+<pre>template&lt;class T&gt;
+void shellSort( T ar[], int size)
+{
+int j;
+
+for( int gap = size / 2; gap &gt; 0; gap /= 2 )
+  for( int i = gap; i &lt; size; i++ )
+    {
+    T temp = ar[i];
+
+    for( j = i; j &gt;= gap &amp;&amp; temp &lt; ar[j-gap]; j -= gap )
+      ar[j] = ar[j-gap];
+
+    ar[j] = temp;
+    }
+}
+</pre>
+
+<p>The running time for this sort depends on the choice of n.</p>
+
+<p>Using the calculation above, this is an O(N<sup>2</sup>) algorithm.</p>
+
+<p>The algorithm can be made more effective by using increments 1, 3, 7, ..., 2<sup>k</sup>-1. 
+This sequence will keep the consecutive elements from having common factors. 
+This will produce an algorithm that is O(N<sup>3/2</sup>).</p>
+
+<h2>Merge sort</h2>
+
+<p>The merge sort divides the list of elements in half. The left half of the 
+list is sorted. The right half of the list is sorted. The two sorted lists are 
+then merged into one large list.</p>
+
+<pre>Original:     8     6     34     2     51     32     21
+
+              <font color="#FF0000"><b>8     6     34     2</b></font>     <b><font color="#0000FF">51     32     21</font></b>
+
+              <font color="#FF0000"><b>2     6     8     34</b></font>     <font color="#0000FF"><b>21     32     51</b></font>
+
+              2     6     8     21     32     34     51
+</pre>
+
+<h3>Implementation:</h3>
+
+<pre>template&lt;class T&gt;
+void mergeSort( T ar[], int size)
+{
+T *tempArray = new T[size];
+
+mergeSort( ar, tempArray, 0, size-1 );
+}
+
+
+template&lt;class T&gt;
+void mergeSort( T ar[], T temp[], int left, int right )
+{
+if( left &lt; right )
+  {
+  int center = (left + right) / 2;
+  
+  mergeSort( ar, temp, left, center );
+
+  mergeSort( ar, temp, center+1, right );
+  
+  merge( ar, temp, left, center+1, right;
+  }
+}
+
+
+
+template&lt;class T&gt;
+void merge( T ar[], T temp[], int lPos, int rPos, int rEnd )
+{
+int lEnd = rPos - 1,
+    tempPos = lPos,
+    numElem = rEnd - lPos + 1;
+
+while( lPos &lt;= lEnd &amp;&amp; rPos &lt;= rEnd )
+  if( ar[lPos] &lt;= ar[rPos] )
+    temp[tempPos++] = ar[lPos++];
+  else
+    temp[tempPos++] = ar[rPos++];
+
+while( lPos &lt;= lEnd )
+  temp[tempPos++] = ar[lPos++];
+
+while( rPos &lt;= rEnd )
+  temp[tempPos++] = ar[rPos++];
+
+for( int i = 0; i &lt; numElems; i++, rEnd-- )
+  ar[rEnd] = temp[rEnd];
+}
+</pre>
+
+<p>Since the routine is recursive, a recurrence relation must be determined to 
+calculate the running time of the algorithm.</p>
+
+<p>For a list of size 1, the time to merge sort is constant.</p>
+
+<p>T(1) = 1</p>
+
+<p>Otherwise, the recursive call is dealing with half of the list T(n/2), plus 
+the time to merge, which is linear N.</p>
+
+<pre>T(n) = T(n/2) + T(n/2) + n = 2T(n/2) + n
+
+T(n) = 2T(n/2) + n
+
+T(n/2)  =  2T(n/2/2) + n/2  =  2T(n/4) + n/2
+2T(n/2) =  4T(n/4) + n
+2T(n/2) + n  =  4T(n/4) + 2n
+
+T(n)  =  2T(n/2) + n  =  4T(n/4) + 2n
+
+
+In general: T(n) = 2<sup>k</sup>T(n/2<sup>k</sup>) + kn
+
+Solve this for k:  n/2<sup>k</sup> = 1
+                      n = 2<sup>k</sup>
+                  log n = k
+
+T(n) =  2<sup>log n</sup> T(n/2<sup>log n</sup>) + n log n
+     =  n T(n/n) + n log n 
+     =  n T(1) + n log n
+     =  n * 1 + n log n
+     =  n + n log n
+
+O(n + n log n) = O(n log n)
+</pre>
+
+<h2>Quicksort</h2>
+
+<p>Quick sort uses a divide and conquer strategy to sort a list. The
+list is divided into three segments: left, middle, and right.</p>
+
+<p>The middle segment consists of only one element, which is known as
+the <b>pivot</b>.</p>
+
+<p>The left segment consists of all of the elements that are smaller
+than the pivot.</p>
+
+<p>The right segment consists of all of the elements that are larger
+than the pivot.</p>
+
+<p>Pseudocode</p>
+
+<pre>if size of list is greater than 1
+   select the pivot
+   partition the remaining elements into the segments left and right
+   quicksort(left)
+   quicksort(right)
+endif
+</pre>
+
+<table style="border-collapse: collapse" id="AutoNumber1" border="1" bordercolor="#111111" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr>
+    <td align="center" width="10%">13</td>
+    <td align="center" width="10%">81</td>
+    <td align="center" width="10%">92</td>
+    <td align="center" width="10%">43</td>
+    <td align="center" width="10%">65</td>
+    <td align="center" width="10%">31</td>
+    <td align="center" width="10%">57</td>
+    <td align="center" width="10%">26</td>
+    <td align="center" width="10%">75</td>
+    <td align="center" width="10%">0</td>
+  </tr>
+</tbody></table>
+
+<p>Lets pick 65 as the pivot. Then partitioning the list around the pivot 
+results in:</p>
+
+<table style="border-collapse: collapse" id="AutoNumber2" border="1" bordercolor="#111111" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr>
+    <td align="center" width="7%">13</td>
+    <td align="center" width="7%">43</td>
+    <td align="center" width="7%">31</td>
+    <td align="center" width="7%">57</td>
+    <td align="center" width="7%">26</td>
+    <td align="center" width="7%">0</td>
+    <td align="center" width="7%">&nbsp;</td>
+    <td align="center" width="7%">65</td>
+    <td align="center" width="7%">&nbsp;</td>
+    <td align="center" width="7%">81</td>
+    <td align="center" width="7%">92</td>
+    <td align="center" width="7%">75</td>
+  </tr>
+</tbody></table>
+
+<p>Quicksorting the left and right segments results in:</p>
+
+<table style="border-collapse: collapse" id="AutoNumber2" border="1" bordercolor="#111111" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr>
+    <td align="center" width="7%">0</td>
+    <td align="center" width="7%">13</td>
+    <td align="center" width="7%">26</td>
+    <td align="center" width="7%">31</td>
+    <td align="center" width="7%">43</td>
+    <td align="center" width="7%">57</td>
+    <td align="center" width="7%">&nbsp;</td>
+    <td align="center" width="7%">65</td>
+    <td align="center" width="7%">&nbsp;</td>
+    <td align="center" width="7%">75</td>
+    <td align="center" width="7%">81</td>
+    <td align="center" width="7%">92</td>
+  </tr>
+</tbody></table>
+
+<h3>Picking the pivot:</h3>
+
+<ol>
+  <li>Let the first element be the pivot</li>
+  <p>This is okay if the elements in the list are random. If the list is sorted 
+  or in reverse order, this is a poor choice because all of the elements will 
+  end up in either the left or right segment.</p>
+
+  <li>Choose the pivot randomly</li>
+  <p>This option is usually pretty safe, except for the fact that the random 
+  number generation is expensive.</p>
+
+  <li>Median of three</li>
+  <p>Find the first, middle, and last element in the 
+  array. Use the median of the three as the pivot.</p>
+</ol>
+
+<h3>Partitioning the list:</h3>
+
+<p>The <b>partition</b> operation is implemented by searching the list
+from both the beginning and end. The search from the beginning will be
+looking for elements that are greater than the pivot, while the search
+from the end is looking for elements that are less than or equal to the
+pivot.</p>
+
+<p>Once each search finds an element, if the two pointers have not met,
+then the two values are swapped. The process will continue until the two
+searches meet or surpass each other.</p>
+
+<p>Once the two searches have met or surpassed, the smaller of the
+elements is swapped with the pivot.</p>
+
+<pre>1. Swap the pivot element with last element
+
+   8   1   4   9   <b>6</b>   3   5   2   7  0
+
+   8   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+
+
+2. Set i to the first element and j to the next to last element
+
+   8   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+   i                               j
+
+
+3. Move i to the right until it refers to an element that is larger than
+   the pivot value
+
+   8   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+   i                               j
+
+
+4. Move j to the left until it refers to an element that is smaller than
+   the pivot value
+
+   8   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+   i                           j
+
+
+5. If i is to the left of j, swap the elements at positions i and j
+
+   8   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+   i                           j
+
+
+   2   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+   i                           j
+
+
+6. Continue the process until i and j meet or i surpasses j
+
+   2   1   4   9   0   3   5   2   7  <u><b>6</b></u>
+               i           j
+
+
+   2   1   4   5   0   3   9   2   7  <u><b>6</b></u>
+               i           j
+
+
+   2   1   4   5   0   3   9   2   7  <u><b>6</b></u>
+                       j   i
+
+7. Swap the pivot element and the element at position i
+
+   2   1   4   5   0   3   <u><b>6</b></u>   2   7  9
+</pre>
+
+<h3>Pseudocode:</h3>
+
+<pre>template class T
+int partition( T list[], int left, int right)
+{
+calculate the center using left and right subscripts
+calculate the pivot
+   
+while  left &lt; right
+   
+  while  list[right] &gt; pivot
+    decrement right
+  endwhile
+   
+  while  list[left] &lt;= pivot  AND  left &lt; right
+    increment left
+  endwhile
+     
+  if  left &lt; right
+    swap list[left] and list[right]
+  endif
+endwhile
+   
+swap pivot and list[left]
+return left
+}
+</pre>
+
+<p>Now the pseudocode for quicksort can be refined to:</p>
+
+<pre>quicksort(list, first, last)
+
+if first &lt; last
+   partition (list, first, last, pivotPosition)
+   quicksort(list, first, pivotPosition - 1)
+   quicksort(list, pivotPosition + 1, last)
+endif
+</pre>
+
+<p>Since the routine is recursive, a recurrence relation must be determined to 
+calculate the running time of the algorithm.</p>
+
+<p>The running time is equal to the running time of the two recursive calls plus 
+the linear time for the partitioning:</p>
+
+<p>T(n) = T(i) + T(n - i - 1) + cn</p>
+
+<p>T(n) = 1 for n &lt;= 1</p>
+
+<p>where i is the size of the left segment.</p>
+
+<p>Worst case: pivot is the smallest element all of the time. Then i = 0:</p>
+
+<p>T(n) = T(n-1) + cn for n &gt; 1</p>
+
+
+<pre>T(n-1)  =  T(n-2) + c(n-1)
+T(n-2)  =  T(n-3) + c(n-2)
+T(n-3)  =  T(n-4) + c(n-3)
+...
+T(2)    =  T(1) + c(2)
+
+Summing both sides results in:
+
+T(n) + T(n-1) + T(n-2) + T(n-3) + ... + T(2) = T(n-1) + cn + T(n-2) + c(n-1) + T(n-3) + c(n-2) + T(n-4) + c(n-3) + ... + T(1) + c(2)
+
+Eliminating like terms results in:
+
+T(n) = cn + c(n-1) + c(n-2) + ... + 2c + T(1)
+     = c( n + (n-1) + (n-2) + ... + 2 ) + T(1)
+     = c <font face="Times New Roman">&#8721;</font>i + T(1)    (the basic series)
+     = n(1 - n) / 2
+     = n(1 - n)
+     = n - n<sup>2</sup>
+
+     = O(N<sup>2</sup>)
+</pre>
+
+
+<p>Best case: pivot is in the middle</p>
+
+
+<p>To make the math easier, assume that the subarrays are exactly half the size 
+of the original. This results in the recurrence relation:</p>
+
+
+<p>T(n) = 2T(n/2) + cn</p>
+
+
+<p>which was solved earlier for O(n log n).</p>
+
+
+
+</body></html>

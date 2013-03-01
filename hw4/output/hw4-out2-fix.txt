@@ -1,0 +1,97 @@
+
+received 2 argument(s)
+input file will be hw4-in2.txt
+
+"This"->This
+"line"->line
+"has"->has
+"too"->too
+""many""->many
+"q"u"o"t"e"s",->quotes
+'this'->this
+'one'.->one
+apostrophes,->apostrophes
+heard,->heard
+Jones'.->Jones'
+6,0->6.0
+6,6->6.6
+6.6.->6.6
+Table 1: Words (case-sensitive)
+
+Number of distinct entries =  32
+Number of entries          =  38
+
+6.0           2    6.6           2    Don't         1    Europe        1    I             2    
+In            1    Jones'        1    This          1    a             1    and           3    
+apostrophes   1    at            1    does          1    has           1    heard         1    
+line          1    many          1    one           1    party         1    quotes        1    
+remove        1    so            1    the           1    they          1    this          1    
+to            1    too           1    we            1    went          1    when          1    
+where         1    write         2    
+
+
+Table 2: Words (case-insensitive)
+
+Number of distinct entries =  31
+Number of entries          =  38
+
+6.0           2    6.6           2    a             1    and           3    apostrophes   1    
+at            1    does          1    don't         1    europe        1    has           1    
+heard         1    i             2    in            1    jones'        1    line          1    
+many          1    one           1    party         1    quotes        1    remove        1    
+so            1    the           1    they          1    this          2    to            1    
+too           1    we            1    went          1    when          1    where         1    
+write         2    
+
+
+Table 3: Initial letters (case-sensitive)
+
+Number of distinct entries =  17
+Number of entries          =  34
+
+D             1    E             1    I             3    J             1    T             1    
+a             6    d             1    h             2    l             1    m             1    
+o             1    p             1    q             1    r             1    s             1    
+t             5    w             6    
+
+
+Table 4: Initial letters of distinct words (case-sensitive)
+
+Number of distinct entries =  17
+Number of entries          =  30
+
+D             1    E             1    I             2    J             1    T             1    
+a             4    d             1    h             2    l             1    m             1    
+o             1    p             1    q             1    r             1    s             1    
+t             5    w             5    
+
+
+Table 5: Letters (case-sensitive)
+
+Number of distinct entries =  23
+Number of entries          = 129
+
+D             1    E             1    I             3    J             1    T             1    
+a            10    d             5    e            19    h             9    i             5    
+l             1    m             2    n            11    o            13    p             4    
+q             1    r             8    s             9    t            13    u             2    
+v             1    w             6    y             3    
+
+
+Table 6: Some categories of characters
+
+Number of distinct entries =   3
+Number of entries          = 137
+
+consonants   76    digits        8    vowels       53    
+
+
+Table 7: Words by length
+
+Number of distinct entries =   7
+Number of entries          =  38
+
+     1   3         2   5         3  11         4   8         5   6    
+     6   4        11   1    
+
+

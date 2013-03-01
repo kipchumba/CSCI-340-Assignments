@@ -1,0 +1,117 @@
+
+received 2 argument(s)
+input file will be: hw4-in1.txt
+
+Table 1: Words (case-sensitive)
+
+Number of distinct entries = 101
+Number of entries          = 137
+
+1400           1    52             1    6960           1    Broom          2    Cygnus         2    
+Explanation    1    Moon           1    NGC            1    Nebula         3    Over           1    
+Pictured       1    Ten            1    The            2    This           1    Today          1    
+Veil           2    Witch          2    a              3    about          1    above          1    
+actually       1    after          1    ago            1    an             1    ancient        1    
+and            3    angular        1    appeared       1    as             3    away           1    
+before         1    bright         1    but            2    by             1    cloud          1    
+colorful       1    colors         1    constellation  1    dark           1    dawn           1    
+easily         1    end            1    exciting       1    existing       1    expanding      1    
+exploding      1    eye            1    faded          1    few            1    formally       1    
+from           1    full           1    gains          1    gas            2    have           1    
+history        1    human          1    impacting      1    in             1    is             2    
+its            1    know           1    known          1    less           1    lies           1    
+light          3    location       1    must           1    nearby         1    new            1    
+night          1    of             4    over           1    rampaging      1    record         1    
+recorded       1    remnant        1    seen           1    size           1    sky            1    
+spans          1    star           2    suddenly       1    supernova      2    technically    1    
+the           13    this           1    thousand       1    three          1    times          1    
+to             1    towards        1    unaided        1    unrelated      1    visible        1    
+was            1    we             1    weeks          1    west           1    with           1    
+years          2    
+
+
+Table 2: Words (case-insensitive)
+
+Number of distinct entries =  98
+Number of entries          = 137
+
+1400           1    52             1    6960           1    a              3    about          1    
+above          1    actually       1    after          1    ago            1    an             1    
+ancient        1    and            3    angular        1    appeared       1    as             3    
+away           1    before         1    bright         1    broom          2    but            2    
+by             1    cloud          1    colorful       1    colors         1    constellation  1    
+cygnus         2    dark           1    dawn           1    easily         1    end            1    
+exciting       1    existing       1    expanding      1    explanation    1    exploding      1    
+eye            1    faded          1    few            1    formally       1    from           1    
+full           1    gains          1    gas            2    have           1    history        1    
+human          1    impacting      1    in             1    is             2    its            1    
+know           1    known          1    less           1    lies           1    light          3    
+location       1    moon           1    must           1    nearby         1    nebula         3    
+new            1    ngc            1    night          1    of             4    over           2    
+pictured       1    rampaging      1    record         1    recorded       1    remnant        1    
+seen           1    size           1    sky            1    spans          1    star           2    
+suddenly       1    supernova      2    technically    1    ten            1    the           15    
+this           2    thousand       1    three          1    times          1    to             1    
+today          1    towards        1    unaided        1    unrelated      1    veil           2    
+visible        1    was            1    we             1    weeks          1    west           1    
+witch          2    with           1    years          2    
+
+
+Table 3: Initial letters (case-sensitive)
+
+Number of distinct entries =  31
+Number of entries          = 134
+
+B              2    C              2    E              1    M              1    N              4    
+O              1    P              1    T              5    V              2    W              2    
+a             19    b              5    c              4    d              2    e              7    
+f              5    g              3    h              3    i              5    k              2    
+l              6    m              1    n              3    o              5    r              4    
+s              9    t             20    u              2    v              1    w              5    
+y              2    
+
+
+Table 4: Initial letters of distinct words (case-sensitive)
+
+Number of distinct entries =  31
+Number of entries          =  98
+
+B              1    C              1    E              1    M              1    N              2    
+O              1    P              1    T              4    V              1    W              1    
+a             13    b              4    c              4    d              2    e              7    
+f              5    g              2    h              3    i              4    k              2    
+l              4    m              1    n              3    o              2    r              4    
+s              7    t              8    u              2    v              1    w              5    
+y              1    
+
+
+Table 5: Letters (case-sensitive)
+
+Number of distinct entries =  35
+Number of entries          = 635
+
+B              2    C              3    E              1    G              1    M              1    
+N              4    O              1    P              1    T              5    V              2    
+W              2    a             60    b             12    c             16    d             24    
+e             71    f             12    g             19    h             31    i             40    
+k              5    l             32    m             10    n             45    o             39    
+p             10    r             32    s             41    t             50    u             22    
+v              7    w             12    x              5    y             16    z              1    
+
+
+Table 6: Some categories of characters
+
+Number of distinct entries =   3
+Number of entries          = 645
+
+consonants   401    digits        10    vowels       234    
+
+
+Table 7: Words by length
+
+Number of distinct entries =  11
+Number of entries          = 137
+
+  1    3     2   15     3   32     4   25     5   23   
+  6   11     7    7     8   11     9    7    11    2   
+ 13    1   

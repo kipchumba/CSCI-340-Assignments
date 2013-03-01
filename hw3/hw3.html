@@ -1,0 +1,346 @@
+<HTML>
+<HEAD>
+<TITLE>CSCI 340 Spring 2010 Assignment 3</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><H1>CSCI 340 Assignment 3</H1></CENTER>
+<HR>
+
+<H2>Purpose</H2>
+
+<P>This assignment reviews the binary tree data structure and the
+STL <code>vector</code> class and introduces the STL
+<CODE>stack</CODE> and <CODE>queue</CODE> classes.</P>
+
+<H2>Assignment</H2>
+ 
+<P>You will implement a binary expression tree class. You will build
+  the tree from a postfix expression string using a stack.</P>
+
+<H2>Program</H2>
+
+<P>You will need to write the header files and source code for
+three classes:</P>
+
+<UL>
+<LI><CODE>TNode</CODE> is a linked binary expression tree.</LI>
+
+<LI>The <CODE>ExprTree</CODE> class points to the root of the tree.</LI>
+
+<LI>The <CODE>Variable</CODE> class stores the names and values of the
+variables in the expression tree. The <CODE>Variable</CODE>s are
+stored in an STL <CODE>vector</CODE> which is a data member of
+ <CODE>ExprTree</CODE>.</LI>
+</UL>
+
+<H3>Class <CODE>Variable</CODE></H3>
+
+<P>The <CODE>Variable</CODE> data is used to store the name and value
+of a postfix expression variable. To simplify coding, the only
+variable names used in this assignment will be single capital letters.
+</P>
+
+<P>Because the data members of a <CODE>Variable</CODE> must be
+frequently accessed by the <CODE>ExprTree</CODE> implementation, the
+<CODE>Variable</CODE> class should declare the <CODE>ExprTree</CODE> class
+to be a friend.</P>
+
+<P>A <CODE>Variable</CODE> contains two data members. The first is a
+<CODE>char</CODE> that contains the variable name. The second is a 
+<CODE>double</CODE> that contains the variable's current value.</P>
+
+<H3>Constructor for <CODE>Variable</CODE></H3>
+
+<P><CODE>Variable</CODE> has only one constructor, which takes two
+parameters, a <CODE>char</CODE> and a <CODE>double</CODE>. These
+parameters are used to initialize the data members of the class.</P>
+
+
+<H3>Overloaded <CODE>&lt;&lt;</CODE> operator for <CODE>Variable</Code></H3>
+
+<P>Overload the <CODE>&lt;&lt;</CODE> operator for
+the <CODE>Variable</CODE> class to print the two data members of a
+variable, separated by a single space. As usual, you will need to
+declare your overloaded operator function to be a friend.</P>
+
+
+<H3>Class <CODE>TNode</CODE></H3>
+
+<P>The <CODE>TNode</CODE> data structure is used as a building block 
+to create a linked version of a binary expression tree.</P>
+
+<P>Because the data members of a <CODE>TNode</CODE> must be
+frequently accessed by the <CODE>ExprTree</CODE> implementation, the
+<CODE>TNode</CODE> should declare the <CODE>ExprTree</CODE> class
+to be a friend.</P>
+
+<P>A <CODE>TNode</CODE> contains four data members. The first is a 
+<CODE>char</CODE> that specifies the type of operator or operand
+stored in the tree node. The second is a <CODE>double</CODE>
+containing the value of an operand stored in the node. The third and 
+fourth are pointers to a <CODE>TNode</CODE>, the roots of the left
+and right subtrees of the node in the binary tree.</P>
+
+<H3>Constructor for <CODE>TNode</CODE></H3>
+
+<P><CODE>TNode</CODE> has only one constructor, which takes two
+parameters, a <CODE>char</CODE> and a <CODE>double</CODE>. Give the
+second parameter a default value of 0.0. The two constructor parameters 
+are used to initialize the first two data members of the class; the two 
+pointer data members should be initialized to a null value.</P>
+
+<H3>Overloaded <CODE>&lt;&lt;</CODE> operator for <CODE>TNode</CODE></H3>
+
+<P>Overload the <CODE>&lt;&lt;</CODE> operator for the <CODE>TNode</CODE>
+class to print the data members of an expression tree node. If the type of 
+the node is equal to <CODE>'#'</CODE>, print the value data member only. Otherwise,
+print only the type of the node. As usual, you will need to declare
+your overloaded operator function to be a friend.</P>
+
+<H3>Class <CODE>ExprTree</CODE></H3>
+
+<P>The <CODE>ExprTree</CODE> class stores the root of a binary expression 
+tree and an external list of the expression variables.</P>
+
+<P>This class contains two data members. The first is a pointer to
+a <CODE>TNode</CODE>, the root node of the expression tree. The second
+is an STL <CODE>vector</CODE> of <CODE>Variable</CODE> objects
+containing the variable names in the expression tree and their values.</P>
+
+<P><b>Note:</b> In implementing this class, you may want some additional helper
+functions, especially if you use recursion. You are free to add any
+private methods you wish to the <CODE>ExprTree</CODE> class. You may
+not add additional data members.  You may not make any changes to
+the <CODE>TNode</CODE> class.</P>
+
+<H3>Constructors for <CODE>ExprTree</CODE></H3>
+
+<P>The default constructor for the class should initialize the root
+pointer to null. You should also write a second constructor that takes
+a reference to a constant C++ <CODE>string</CODE> as its sole
+parameter. This constructor should call the <CODE>build()</CODE>
+method outlined below, passing the string to it.</P>
+
+<H3>Copy constructor for <CODE>ExprTree</CODE></H3>
+
+<P>The copy constructor takes a reference to a
+constant <CODE>ExprTree</CODE> object as its parameter and should be
+implemented in the usual fashion for a binary tree. In addition to the
+tree itself, you will also need to copy the list of variables.  This
+can be accomplished by assigning the variable list of the tree to the
+variable list of the new tree, since the <CODE>vector</CODE> class has
+a built-in overloaded assignment operator.</P>
+
+<H3>Destructor for <CODE>ExprTree</CODE></H3>
+
+<P>This function calls the <CODE>destroy()</CODE> method described
+below, passing it the root of the expression
+tree. The <CODE>vector</CODE> of variables already has its own
+destructor that will be called automatically.</P>
+
+<H3><CODE>ExprTree::clear()</CODE></H3>
+
+<P>This method returns nothing and takes no parameters. It clears the
+binary expression tree, releasing all of the dynamic memory associated
+with the tree. It does not alter the <CODE>vector</CODE> of
+variables. It should call the <CODE>destroy()</CODE> method, passing
+it the root of the tree, and then set the root to a null value.</P>
+
+<H3><CODE>ExprTree::destroy()</CODE></H3>
+
+<P>This method returns nothing and takes a pointer to an expression
+tree node as its sole parameter. The method should traverse the tree
+and free all of the nodes. The logic here is basically a slightly
+modified postorder traversal, so it is easiest to write this as a
+recursive function. This method will not be called from outside
+the <CODE>ExprTree</CODE> class, so make it private.</P>
+
+<H3>Overloaded assignment operator for <CODE>ExprTree</CODE></H3>
+
+<P>Standard approach applies. As with the copy constructor, the
+<CODE>vector</CODE> of variables may be copied using a normal
+assignment statement.</P>
+
+<H3><CODE>ExprTree::build()</CODE></H3>
+
+<P>This method returns nothing and takes a reference to a
+constant <CODE>string</CODE> as its parameter. The string will contain
+a postfix expression, with the tokens of the expression separated by
+spaces. The method should build a binary expression tree from the
+postfix expression string using an STL <CODE>stack</CODE> to
+temporarily store the addresses of the tree nodes as the tree is
+built.</P>
+
+<P>There are a number of possible ways to break a string into
+individual tokens in C/C++, and you may use any method you like. One
+way is outlined in the <B>Implementation Hints</B> below.</P>
+
+<UL>
+<LI>For an operator token
+(<CODE>+</CODE>, <CODE>-</CODE>, <CODE>*</CODE>, or <CODE>/</CODE>),
+create a new tree node, store the token as the type and store 0.0 as
+the value. Pop an address off the stack and store the address in the
+new node's right link. Pop another address off the stack and store it
+in the new node's left link. Then push the new node's address onto the
+stack.</LI>
+
+<LI>For an alphabetic variable name token, create a new tree node,
+store the variable name as the type and store 0.0 as the value. Push
+the address of the new node onto the stack.</LI>
+
+<LI>For a literal number token, create a new tree node,
+store <CODE>'#'</CODE> as the type and store the number as the value
+(you'll need to convert the number to <CODE>double</CODE> format
+first, of course). Push the address of the new node onto the
+stack.</LI>
+</UL>
+
+<P>Once all tokens in the expression string have been processed, pop
+an address off the stack and store it as the root of the expression
+tree.</P>
+
+<H3><CODE>ExprTree::evaluate()</CODE></H3>
+
+<P>This method returns a <CODE>double</CODE> and takes no
+parameters. It should compute and return the value of the expression
+stored in the tree, or 0.0 if the tree is empty. The logic described
+here is once again a modified postorder traversal, so you will most
+likely want to write a recursive helper function to do the work. All
+of the operands (literal numbers and variable names) in the expression
+tree are stored in leaf nodes, while the operators are stored in
+non-leaf nodes.</P>
+
+<UL>
+<LI>When a node with type <CODE>'#'</CODE> is encountered, return the
+value of the node.</LI>
+<LI>When a node containing a variable name is encountered, call
+<CODE>getVariable()</CODE> to obtain the variable's value and
+return it.</LI>
+<LI>When a node containing an operator is encountered, traverse the
+node's left subtree to obtain the value of the first operand, traverse
+the right subtree to obtain the value of the second operand, perform
+the type of arithmetic indicated by the operator, and then return the
+result.</P>
+</UL>
+
+<H3><CODE>ExprTree::printInorder()<BR>
+ExprTree::printPostorder()<BR>
+ExprTree::printLevel()<BR></CODE></H3>
+
+<P>Print the nodes of the tree to standard output in inorder,
+postorder, and level-by-level fashion respectively. The first two are
+easy to implement using recursive helper methods. For the inorder
+traversal, we will print the infix version of the expression in fully
+parenthesized form. To do this, print <CODE>"( "</CODE>, traverse the
+left subtree, print the current node contents followed by a space,
+traverse the right subtree, and finally print <CODE>") "</CODE>.</P>
+
+<P>The level-by-level traversal should be implemented iteratively
+(i.e., non-recursively) using an STL <CODE>queue</CODE> object to
+store the node addresses as the tree is traversed.</P>
+
+<H3><CODE>ExprTree::setVariable()</CODE></H3>
+
+<P>This method returns nothing and takes two parameters,
+a <CODE>char</CODE> variable name and a <CODE>double</CODE> variable
+value. The method should declare an appropriate
+<CODE>iterator</CODE>  and use it to perform a linear search of the variable list 
+<CODE>vector</CODE> for the variable name passed in as a parameter. If
+the name is found, replace the current value stored for the variable
+with the new value passed in as a parameter. If the name is not found,
+create a new <CODE>Variable</CODE> object with the new variable name
+and value passed in as parameters and add it to the end of the
+<CODE>vector</CODE>.</P>
+
+<H3><CODE>ExprTree::getVariable()</CODE></H3>
+   
+<P>This method returns a <CODE>double</CODE> and takes one parameter,
+a <CODE>char</CODE> variable name. The method should declare an
+appropriate <CODE>iterator</CODE> and use it to perform a linear
+search of the variable list <CODE>vector</CODE> for the variable name
+passed in as a parameter. If the name is found, return the value
+associated with it. If not, return 0.0.</P>
+
+<H3><CODE>ExprTree::printVariables()</CODE></H3>
+   
+<P>This method returns nothing and takes no parameters. It should
+declare an appropriate <CODE>iterator</CODE> and use it to traverse
+the variable list <CODE>vector</CODE>, printing the values of
+the <CODE>Variable</CODE> objects stored there.</P>
+
+<H2>Implementation Hints</H2>
+
+<P>One method to break a C++ <CODE>string</CODE> into individual
+tokens is to use a <I>string stream</I>.  Since a string is just a
+series of characters (just like a file or input typed at the
+keyboard), you can create a stream object and associate it with a
+C++ <CODE>string</CODE>, e.g.:</P>
+
+<PRE>
+   istringstream ist(expressionString);   // create an input string stream
+   string token;         // string to hold individual token
+
+   while (ist >> token)  // read a single token from the expression string stream
+      {            
+      // process the token
+      }
+</PRE>
+
+<P>The <CODE>istringstream</CODE> class can be found in the C++ header
+file <CODE>&lt;sstream&gt;</CODE>.</P>
+
+<P>You can use an iterator or subscript with
+C++ <CODE>string</CODE>s. You can also use some of the higher-level
+functions available. (You can obtain the length of a string from
+the <CODE>length()</CODE> method of <CODE>string</CODE>.)</P>
+
+<P>A C++ <CODE>string</CODE> object can be converted to a C-style
+null-terminated string using the <CODE>c_str()</CODE>
+method <CODE>string</CODE>. There are several C functions that will
+convert a C-style string to a <CODE>double</CODE>,
+including <CODE>atof()</CODE>, <CODE>strtod()</CODE>,
+and <CODE>sscanf()</CODE>. Check the online <CODE>man</CODE> pages for
+details of these functions.</P>
+
+<P>There are also many web sites available that cover the C++ Standard
+Template Library classes and the C standard library functions; see the
+course web page for some useful links.</P>
+
+<H2>Submission</H2>
+
+<UL>
+
+<LI>Use good object-oriented practices. Methods that do not alter the
+class data should be declared <CODE>const</CODE>. Objects should
+normally be passed by reference to save on overhead; if a method does
+not alter the object, pass a reference to
+<CODE>const</CODE> data rather than passing the object by value.</P></LI>
+
+ 
+<LI><P>You must have a makefile with a rule for compiling an object
+file for each source code file.  A linking rule should link all of
+your object files together to create one executable. The name of your
+final executable should be <CODE>hw3.exe</CODE>. You should also
+provide a "clean" rule.</P></LI>
+
+<LI><P>Use the same naming convention as previously for each class
+    and header.</P></LI>
+
+<LI><p>A driver program for testing your program can be found here:
+<A HREF="hw3.cpp">hw3.cpp</A>. Sample output for this driver can be found here:
+<A HREF="hw3-out.txt">hw3-out.txt</A>.</P></LI>
+
+<LI>Your program must follow <i>all</i> the documentation standards
+listed on the course web site.</P></LI>
+
+<LI><P>As always, programs that do not compile on <KBD>turing</KBD>
+automatically receive 0 points.</P></LI>
+      
+<LI><P>Submit your project using mailprog.340.  Submit the 6 files
+    you have written (3 *.h and 3 *.cpp) plus your makefile.</P></LI>
+
+</UL>
+
+</BODY>
+</HTML>

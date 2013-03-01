@@ -1,0 +1,322 @@
+<HTML>
+<HEAD>
+<TITLE>CSCI 340 Spring 2010 Assignment 1</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><H1>CSCI 340 Assignment 1 (corrected)</H1></CENTER>
+<HR>
+ 
+<p><i>Corrections and clarifications noted with ***. There are three
+clarifications to the writeup, plus a correction to the calculation of
+the team statistics. You can compare to the <A HREF="hw1-orig.html">original
+version</A>.</i></p>
+
+<H2>Purpose</H2>
+
+<P>This assignment covers inheritance and polymorphism. It also
+  contains a review of arrays and pointers and a makefile.</P>
+
+<H2>Assignment</H2>
+ 
+<P>For this project, you will create a series of classes designed to provide 
+support for a simple database of baseball players. If you are not familiar 
+with the sport of baseball, do not be concerned - this writeup should teach 
+you everything you need to know to get the project done.</P> 
+
+<H3>BaseballPlayer Class Hierarchy</H3>
+
+<P>First, you are to create an <EM>abstract base class</EM> 
+<B>BaseballPlayer</B>.  Every <B>BaseballPlayer</B> has</P>
+
+<UL>
+<LI>a <TT>name</TT>, which is of type <TT>string</TT> (this is the
+  C++ <TT>string</TT> class, <i>not</i> a C-string implemented as an array),</LI> 
+<LI>a <TT>height</TT>, which is of type <TT>int</TT>,</LI> 
+<LI>and a <TT>weight</TT>, which is of type <TT>int</TT>.</LI>
+</UL>
+
+<P>A <B>Pitcher</B> is a <B>BaseballPlayer</B> with the following additional 
+data members:</P>
+
+<UL>
+<LI>a <TT>throws</TT> data member which is a <TT>char</TT> (representing right- 
+or left-handed),</LI>
+<LI>the number of <TT>inningsPitched</TT> the pitcher has recorded, which is an 
+<TT>float</TT>,</LI> 
+<LI>the number of <TT>earnedRuns</TT> the pitcher has allowed, which is an 
+<TT>int</TT>,</LI> 
+<LI>and the pitcher's <TT>ERA</TT> (Earned Run Average), which is a 
+<TT>float</TT> (instructions for calculating this are given later).</LI>
+</UL>
+
+<P>You should also define a symbolic constant <TT>THROWS_UNINITIALIZED</TT> and 
+set it to <TT>'U'</TT>.</P>
+
+<P>You are also to derive a <B>Hitter</B> class from <B>BaseballPlayer</B> 
+with the following additional data members:</P>
+ 
+<UL>
+<LI>a <TT>bats</TT> data member, which is a <TT>char</TT> that 
+indicates whether the hitter bats right-handed, left-handed, or both (for a 
+switch hitter),</LI> 
+<LI>an <TT>atBats</TT> field, which is an <TT>int</TT> that gives the 
+number of plate appearances for the player,</LI> 
+<LI>a number of <TT>hits</TT>, which is an <TT>int</TT>,</LI> 
+<LI>and a <TT>batAvg</TT>, which is a <TT>float</TT> (again, defined 
+later).</LI>
+</UL>
+
+<P>You should also define a symbolic constant <TT>BATS_UNINITIALIZED</TT> and 
+set it to <TT>'U'</TT>.</P>
+
+<P>Now that the implementation details of this hierarchy have been 
+discussed, the interface may be specified.</P>
+
+<P>The <B>BaseballPlayer</B> class should have the following methods:</P> 
+
+<UL>
+<LI><P>a constructor that takes a <TT>string</TT>, and two <TT>ints</TT> as 
+arguments. It initializes <TT>name</TT> to <TT>""</TT>, <TT>weight</TT> to 
+0, and <TT>height</TT> to 0 if the corresponding parameters are not passed 
+in. This constructor will only be invoked via a derived-class 
+constructor.</P></LI>
+<LI><P>a <EM>get_name</EM> member function that takes no arguments and 
+provides <I>read-only</I> access to the player's name.</P></LI>
+<LI><P>a <EM>pure virtual member function</EM> called <EM>print_player</EM> 
+that takes no arguments and is defined in its derived classes.</P></LI> 
+<LI><P>a <EM>pure virtual member function</EM> called <EM>load_player</EM> 
+that takes a single parameter that is a reference to an <TT>ifstream</TT> 
+and is defined in its derived classes</P></LI>
+</UL>
+
+<P>The <B>Pitcher</B> class should have the following methods:</P>
+
+<UL>
+
+<LI><P>a constructor that takes a <TT>string</TT>, two <TT>int</TT>s,
+a <TT>char</TT>, a <TT>float</TT> and another <TT>int</TT> as arguments. It should
+use a base-class member initializer to set variables inherited from
+the base class. The other arguments should default to
+<TT>THROWS_UNINITIALIZED</TT> (for the <TT>char</TT>) or 0. The constructor should 
+also call the utility function described below to compute the pitcher's ERA.</P></LI>
+
+<LI><P>a private <EM>utility</EM> member function that returns a pitcher's 
+earned run average. ERA is computed as <TT>earnedRuns / inningsPitched * 9.0</TT>.
+If a pitcher has no innings pitched, return a 999.99 ERA.</P></LI>
+
+<LI><P>a <EM>virtual</EM> member function called <EM>print_player</EM> that 
+takes no arguments and prints the fact that the player is a pitcher along 
+with all of the data members of a pitcher object with appropriate labels. 
+For example,</P>
+
+<PRE>
+Pitcher -
+Name: Maddux,Gregg
+Height: 72 inches
+Weight: 170 pounds
+Throws: R
+Earned Runs: 95
+Innings Pitched: 212.667
+ERA: 4.02
+</PRE></LI>
+
+<LI><P>a <EM>virtual</EM> member function called <EM>load_player</EM> which 
+takes a single parameter that is a reference to an <TT>ifstream</TT>. It 
+reads the following fields from the <TT>ifstream</TT> object passed into 
+it:</P>
+
+<UL>
+<LI>a pitcher's name to be stored in <TT>name</TT></LI> 
+<LI>a pitcher's height in inches to be stored in <TT>height</TT></LI>
+<LI>a pitcher's weight in pounds to be stored in <TT>weight</TT></LI>
+<LI>the hand with which a pitcher throws (<TT>'R'</TT> or <TT>'L'</TT>) 
+to be stored in <TT>throws</TT> 
+<LI>the number of earned runs the pitcher has allowed to be stored in 
+<TT>earnedRuns</TT></LI>
+<LI>the number of innings pitched the pitcher has recorded to be stored in 
+<TT>inningsPitched</TT></LI>
+</UL>
+
+</UL>
+
+<P>You may assume that all values are on a single line of input in a text 
+file and that the values in the file are valid. Note that the <TT>ERA</TT> 
+is NOT read in from the input stream; the <EM>load_player</EM> function should instead
+call the private utility function described above to compute and store
+the pitcher's ERA.</P></LI> 
+
+<P>The <B>Hitter</B> class should have the following methods:</P>
+
+<UL>
+<LI><P>a constructor that takes a <TT>string</TT>, two <TT>int</TT>s, a <TT>char</TT>,
+and two more <TT>int</TT>s as arguments. It should use a base-class member initializer 
+to set variables inherited from the base class. The other arguments should default to 
+<TT>BATS_UNINITIALIZED</TT> (for the <TT>char</TT>) or 0. The constructor should 
+also call the utility function described below to compute the hitter's batting 
+average.</P></LI> 
+
+<LI><P>a private <EM>utility</EM> member function that returns a hitter's 
+batting average. Batting average is computed as <TT>hits / atBats</TT>.
+If a hitter has no at bats, return a 0 batting average.</P></LI>
+
+<LI><P>a <EM>virtual</EM> member function called <EM>print_player</EM> that 
+takes no arguments and prints the fact that the player is a hitter along 
+with all of the data members of a hitter object with appropriate labels. 
+For example,</P>
+
+<PRE>
+Hitter -
+Name: Bonds,Barry
+Height: 74 inches
+Weight: 228 pounds
+Bats: L
+Hits: 135
+At Bats: 373
+Batting Average: .362
+</PRE></LI>
+
+<LI><P>a <EM>virtual</EM> member function called <EM>load_player</EM> which 
+takes a single parameter that is a reference to an <TT>ifstream</TT>. It 
+reads the following fields from the <TT>ifstream</TT> object passed into 
+it:</P>
+
+<UL>
+<LI>a hitter's name to be stored in <TT>name</TT></LI> 
+<LI>a hitter's height in inches to be stored in <TT>height</TT></LI>
+<LI>a hitter's weight in pounds to be stored in <TT>weight</TT></LI>
+<LI>the side of the plate that a hitter bats from (<TT>'R'</TT>, 
+<TT>'L'</TT>, or <TT>'B'</TT>) to be stored in <TT>bats</TT></LI> 
+<LI>the number of hits the hitter has obtained to be stored in 
+<TT>hits</TT></LI>
+<LI>the number of times the hitter has been at bat to be stored in 
+<TT>atBats</TT></LI>
+</UL>
+ 
+<P>You may assume that all values are on a single line of input in a text 
+file and that the values in the file are valid. Note that the <TT>batAvg</TT> 
+is NOT read in from the input stream; the <EM>load_player</EM> function should instead
+call the private utility function described above to compute and store the hitter's 
+batting average.</P></LI> 
+
+</UL>
+
+<P>A final note on the <TT>BaseballPlayer</TT> hierarchy: Every class in the 
+hierarchy should contain a <I>virtual</I> destructor. This will ensure that 
+when the <B>PlayerDatabase</B>'s destructor (see below) is called to delete 
+all of the elements in the <TT>team</TT> array, the correct destructor will 
+be called for each player. Note that the destructors do not actually have 
+to take any action explicitly - they can each have empty function bodies.</P>
+
+<p>*** These virtual destructors are an exception to the Rule of 3
+(the rule that says that you either need all three of the destructor,
+the overloaded assignment operator, and the copy constructor, or none
+of them, and you need all three if the constructor uses any dynamic
+memory.</p>.
+
+<P>You should build and test the hierarchy with your own <EM>main</EM> 
+before moving on to the next part.</P>
+
+<H3>The PlayerDatabase Class</H3>
+
+<P>Now that you are able create and load individual players, you 
+can move on to storing an entire team. You will create a class called 
+<B>PlayerDatabase</B> which has the following data members:</P>
+
+<UL>
+<LI>an <TT>int</TT> called <I>team_count</I> that represents the
+number of members on the team.</LI>
+
+<LI>an array of pointers to <B>BaseballPlayer</B>s.</LI>
+</UL> 
+
+<P>The class should have the following member functions:</P> 
+
+<UL>
+
+<LI><P>a <EM>destructor</EM> that deletes every element of the <TT>team</TT> 
+array that points to an object and then resets <i>team_count</i>.</P></LI>
+ 
+<LI><P>*** an <EM>overloaded assignment operator</EM> and a <EM>copy
+constructor</EM> required because the constructor uses dynamic
+memory. Each should correctly allocate and copy the dynamic
+memory. The assignment operator should also perform the
+self-assignment check.</P></LI>
+ 
+<LI><P>*** a member function called <EM>print_team</EM> that takes no
+arguments and prints the entire team by traversing the <TT>team</TT>
+array and calling <EM>print_player</EM> for every element. After all
+players have been printed, the function should print the team batting
+average (total hits divided by total at-bats) and the team ERA (total
+earned runs divided by the total innings pitched, multiplied by
+9).</P></LI>
+ 
+<LI><P>a member function called <EM>load_team</EM> that takes a single 
+parameter that is a reference to an <TT>ifstream</TT>. This function reads 
+the file referenced by <TT>ifstream</TT> one line at a time. It reads the 
+first character of each line explicitly. If that character is a 
+<TT>'P'</TT>, <EM>load_team</EM> should create a pointer to a newly 
+allocated empty <B>Pitcher</B> object, and then call the 
+<TT>load_player</TT> member function of the newly created object to read 
+the rest of the line containing information on the pitcher. Similarly, if 
+that character is an <TT>'H'</TT>, <EM>load_team</EM> should create a 
+pointer to an newly allocated empty <B>Hitter</B> object, and then call 
+the <TT>load_player</TT> member function of the newly created object to 
+read the rest of the line containing information on the hitter. In either 
+case, the pointer to the object should then be inserted in the next
+available slot in the <TT>team</TT> array. You will need to typecast
+the pointer to <B>BaseballPlayer *</B>.
+Here are two example entries in a typical team data file:</P>
+
+<PRE>
+P Maddux,Gregg 72 170 R 95 212.667
+H Bonds,Barry 74 228 L 135 373
+</PRE></LI>
+
+</UL>
+
+<H2>Other Points</H2>
+
+<UL>
+
+<LI><P>You must have a makefile with a rule for compiling an object
+file for each source code file.  A linking rule should link all of
+your object files together to create one executable. The name of your
+final executable should be <CODE>hw1.exe</CODE>. You should also
+provide a "clean" rule.</P></LI>
+
+<LI><P>The <B>BaseballPlayer</B> class declarations should be placed in a 
+file called <U>BaseballPlayer.h</U>; its member function definitions should 
+be placed in <U>BaseballPlayer.cpp</U>, and similarly for <B>Pitcher</B>, 
+<B>Hitter</B>, and <B>PlayerDatabase</B>.</LI>
+
+<LI>A driver program for testing your database can be found here:
+<A HREF="hw1.cpp">hw1.cpp</A></P>
+
+<P>A short file used for input by the driver program may be found here:
+<A HREF="players-mini.txt">players-mini.txt</A>. The output for this
+file is <A HREF="output-mini.txt">output-mini.txt</A>.</P> 
+
+<P>A more realistic one can be found here:
+<A HREF="players-orig.txt">players-orig.txt</A>. The output for this
+file is <A HREF="output-orig.txt">output-orig.txt</A>.</LI>
+
+<LI>You program must follow all the documentation standards listed on
+the course web site. Don't forget to get rid of all compiler warnings when the 
+<CODE>-Wall</CODE> compilation option is used.</LI>
+
+<LI><P>As always, programs that do not compile on <KBD>turing</KBD>
+automatically receive 0 points.</P></LI>
+      
+<LI><P>Submit your program using the electronic submission guidelines
+posted on the course web site and discussed in class.<br>
+*** Submit the 8 class files (4 *.h and 4 *.cpp) plus your
+makefile.</P></LI>
+
+<LI>You will be adding functions to this program in Assignment 2, so
+you must complete this program even if it is too late to receive credit.</LI>
+
+</UL>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+CSCI 340 Spell Checker
+
+vitreous
+OK
+
+avacado
+avocado
+
+asssert
+assert
+assert
+assert
+
+monky
+money
+monk
+monk y
+monkey
+monty
+
+heliotrope
+OK
+
+marinade
+OK
+
+justification
+Not found
+
+blund
+b lund
+bland
+blend
+blind
+blond
+blunt
+bound
+lund
+
+toprid
+top rid
+torpid
+torrid
+
+embody
+OK
+
+clock ticks per second = 1000000
+start time = 0
+end time 770000
+time to load dictionary = 0.77
+
+Number of entries   25103
+Number of buckets   97
+Buckets in use      97
+Average list length 258.794
+Maximum list length 293
+
+start time = 770000
+end time 890000
+time to check words = 0.12
+

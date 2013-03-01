@@ -1,0 +1,4 @@
+P Adkins,Jon 72 200 R 5 9.333
+H Alomar,Roberto 72 185 S 64 253
+H Borchard,Joe 77 220 S 9 49
+P Buehrle,Mark 74 200 L 106 230.333

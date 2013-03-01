@@ -1,0 +1,259 @@
+<HTML>
+<HEAD>
+<TITLE>CSCI 340 Spring 2010 Assignment 4</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><H1>CSCI 340 Assignment 4</H1></CENTER>
+<HR>
+
+<H2>Purpose</H2>
+
+<P>This assignment uses the STL <CODE>map</CODE> container class, a
+variety of STL algorithms, and some <CODE>string:iterator</CODE>s.</P>
+
+<H2>Assignment</H2>
+
+<P>In this assignment, you will write a C++ program that reads a text
+file and collects a number of statistics about the words it contains.</P>
+
+<P>Words in the input file are separated by whitespace, which is
+defined as any combination of blanks, tabs, and newline characters.</p>
+
+<P>For this program, you may use only STL algorithms, which means you
+must use iterators. Do not loop through the input with a
+subscript. Also, you may only use the C++ <CODE>string</CODE> class, so
+do not use any old-style C strings (i.e., arrays of <CODE>char</CODE>).</P>
+
+<H2>Program</H2>
+
+<P>You will need to write a main program as well as the header files and
+source code for the <CODE>Table</CODE> and <CODE>NumericTable</CODE> classes.</P>
+
+<H3>The <CODE>main()</CODE> function</H3>
+
+<P>Define a <CODE>Table</CODE> or <CODE>NumericTable</CODE> for each
+of the following:
+
+<UL>
+
+<LI><p>Table 1: A table of distinct words in the input and their
+frequency, case-sensitive.</p></LI>
+
+<LI><p>Table 2: A table of distinct words in the input and their
+frequency, case-insensitive. In other words, 'The' and 'the' would
+count as distinct words in Table 1 but the same word in Table
+2.</p></LI>
+
+<LI><p>Table 3: Number of words in the input starting with each letter of
+the alphabet, case-sensitive. In other words, the number of words
+starting with 'a', 'b', etc.</p></LI>
+
+<LI><p>Table 4: Number of <i>distinct</i> words in the input starting
+with each letter of the alphabet, case-sensitive. In other words, the
+number of words in Table 1 that start with 'a', 'b', etc. (Note that
+there are multiple ways to obtain this data. You can iterate through
+Table 1 if you like but you don't have to.)</p></LI>
+
+<LI><p>Table 5: Number of times each letter of the alphabet is found in
+the input, case-sensitive.</p></LI>
+
+<LI><p>Table 6: The number of vowels, consonants and digits in the
+file, case-insensitive. Consider the letters a, e, i, o, u to be
+vowels and the other letters to be consonants. (The letter 'y' is
+sometimes a vowel, but we'll ignore that for the moment.)</p></LI>
+
+<LI><p>Table 7: The number of 1-letter words, 2-letter words, etc. in the
+file. (The term "n-letter word" means a word of length n, regardless
+of the makeup of the word.)</p></LI>
+
+</UL>
+
+
+
+<P>Your program should do the following:</P>
+
+<UL>
+
+<LI><p>Obtain the name of the input file from the command line.</p></LI>
+
+<LI><P>Use the input extractor (the '>>' symbol) to read words from
+the input file. The input extractor will separate words based on
+whitespace.</p></LI>
+
+<LI>Use the following rules in sequence to obtain a canonical form for
+each word. These rules are simpler than the full set of rules needed
+to parse English text, but they will give you a feel for the type of
+rules required. Write your rules using STL <CODE>algorithms</CODE>
+such as <CODE>find</CODE>, <CODE>remove</CODE>, <CODE>replace</CODE>, 
+<CODE>transform</CODE> and <CODE>for_each</CODE>, among others.
+
+<UL>
+
+  <li>Remove all of the double quotes (") from the word.</li>
+
+  <li>If a word starts and ends with a single quote ('), remove both
+  quotes. Do not remove any other single quotes.</li>
+
+  <li>If a word ends in a comma or period, delete the final
+  punctuation mark.</li>
+
+  <li>If a word consists of all numeric digits with the possible
+  exception of a comma, replace the comma by a period.</li>
+
+</UL>
+</p>
+</LI>
+
+<LI>Use the <CODE>add</CODE> function for each table to
+increment the correct entry in that table.</P></LI>
+
+<LI>After the input is finished, use the <CODE>print</CODE> function
+for each table to print the table as described below.</P></LI>
+
+</UL>
+
+<H3>Class <CODE>Table</CODE></H3>
+
+<P>The <CODE>Table</CODE> class contains the following data members:</P>
+
+<ul>
+<li><P>A <CODE>map</CODE> container containing <CODE>pairs</CODE> of
+type <CODE>pair&lt;string, int&gt;</CODE>. The first element of
+the <CODE>pair</CODE> contains a key and the second contains its
+frequency, i.e., the number of times a word matching the key occurs in
+the input.</P></li>
+
+<li><P>A count of the number of distinct items added to the map. This
+  number should match the size of the map.</P></li>
+
+<li><P>A count of the number of items, not necessarily distinct, for which
+data has been added to the map. This number should match the sum of
+the frequencies in the map.</P></li>
+
+</ul>
+
+<H3>Constructor for <CODE>Table</CODE></H3>
+
+<P><CODE>Table</CODE> has only one constructor, which takes no
+parameters. It initializes the <CODE>map</CODE> and sets both the entry
+count and the item count to zero.</P>
+
+
+<H3><CODE>add</CODE> function for <CODE>Table</Code></H3>
+
+<P>The <CODE>add</CODE> function for the <CODE>Table</CODE> class
+takes one argument, a <CODE>string</CODE>. The
+string is used to identify the table entry to be incremented.</P>
+
+<P>Remember that a <CODE>map</CODE> keeps its entries in order sorted
+by the first argument (the key). For a given <CODE>string s</CODE>
+and <CODE>map m</CODE>, the statement</P>
+
+<PRE>
+m[s]++;
+</PRE>
+
+<P>will do one of two things. If the key <CODE>s</CODE> is not already
+present in the <CODE>map</CODE>, it adds <CODE>s</CODE> to the map as
+the key of a new entry and sets the value to 1. If the
+key <CODE>s</CODE> is already in the <CODE>map</CODE>, it
+increments the value stored for that key by 1 instead.</P>
+
+<H3><CODE>print</CODE> function for <CODE>Table</Code></H3>
+
+<P>The <CODE>print</CODE> function for the <CODE>Table</CODE> class
+takes one argument, a <CODE>string</CODE>, which will be used as the
+table header.</P>
+
+<P>For each table, print a header line showing the table number and a
+brief description. Skip a line after the header.</p>
+
+<p>Also print two summary lines showing the number of entries and number
+of distinct entries in the table. Skip a line after the two summary lines.</p>
+
+<p>Then print the table entries 5-up (i.e., 5 per line).</p>
+
+<p>All words must be left-justified and all numbers must be
+right-justified in constant-width fields so that the tables are
+printed in neatly aligned columns. For example, you could use 12 positions
+for every word, a space between columns, 3 positions for each number,
+and two spaces between columns.</p>
+
+<P>Your output should look like this:</P>
+
+<PRE>
+Table 1: Case-sensitive words
+
+  7 distinct entries
+123 entries
+
+aaa    6          bbb    1          etc.
+f     10          gg    11
+</PRE>
+
+<p>Skip two lines after each table.</p>
+
+<p>Make sure your code works correctly regardless of whether the last
+line of your printout is full or not.</p>
+
+
+<H3>Class <CODE>NumericTable</CODE></H3>
+
+<P>The <CODE>NumericTable</CODE> class is identical to
+the <CODE>Table</CODE> class except that it contains integer keys
+instead of strings.</P>
+
+
+<H2>Submission</H2>
+
+<UL>
+
+<LI>Use good object-oriented practices. Methods that do not alter the
+class data should be declared <CODE>const</CODE>. Objects should
+normally be passed by reference to save on overhead; if a method does
+not alter the object, pass a reference to
+<CODE>const</CODE> data rather than passing the object by value.</P></LI>
+
+<LI>Remember that any auxiliary variables you define, such as
+iterators, should be local to the function they are used in. They
+should not be class members or global variables.</LI>
+
+<LI><P>You must have a makefile with a rule for compiling an object
+file for each source code file. A linking rule should link all of
+your object files together to create one executable. The name of your
+final executable should be <CODE>hw4.exe</CODE>. You should also
+provide a "clean" rule.</P></LI>
+
+<LI><P>Name your program <CODE>hw4.cpp</CODE>. Use the same naming
+convention as previously for the <CODE>Table</CODE> class and its
+header file.</P></LI>
+
+<LI><p>Execute your program as <CODE>./hw4.exe
+filename.txt</CODE>. Make up a one line file to test your program so
+you can verify the counts yourself. Then you can try mine:
+<A HREF="hw4-in1.txt">hw4-in1.txt</A> and
+<A HREF="hw4-in2.txt">hw4-in2.txt</A>. 
+You can see my answers here:
+<A HREF="hw4-out1.txt">hw4-out1.txt</A> and
+<A HREF="hw4-out2.txt">hw4-out2.txt</A>.
+In my answers you can see that 'one'.->'one' due to the order of the
+rules. That's a flaw in the specs; in a real world application, you'd
+change the order of the rules to remove punctuation first. If you took
+the initiative and did that, you'd get the same answers for file #1
+and <A HREF="hw4-out2-fix.txt">hw4-out2-fix.txt</A> for file #2. Either 
+answer is fine.</P></LI>
+
+<LI>Your program must follow <i>all</i> the documentation standards
+listed on the course web site.</P></LI>
+
+<LI><P>As always, programs that do not compile on <KBD>turing</KBD>
+automatically receive 0 points.</P></LI>
+      
+<LI><P>Submit your project using mailprog.340.  Submit the 5 files
+you have written plus your makefile.</P></LI>
+
+</UL>
+
+</BODY>
+</HTML>

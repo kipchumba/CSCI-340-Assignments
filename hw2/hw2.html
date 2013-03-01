@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<TITLE>CSCI 340 Spring 2010 Assignment 2</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><H1>CSCI 340 Assignment 2</H1></CENTER>
+<HR>
+ 
+<H2>Purpose</H2>
+
+<P>This assignment builds on last week's assignment. It replaces the
+  array and loop indices by the STL vector class and iterators. It
+  also uses a command line argument to acquire the file name. The
+  driver requires a copy constructor and an overloaded assignment
+  operator to work properly.</P>
+
+<H2>Assignment</H2>
+ 
+<P>Make the following changes to your program from HW1.</P>
+
+<H3>Using the STL vector class and iterators</H3>
+
+<P>Replace the array in your player database by an STL vector of
+  pointers to baseball players.</P>
+
+<P>Where possible, use an iterator to loop through the vector.</P>
+
+
+<H3>Good team and small team</H3>
+
+<P>Your program will produce four output files. The first three
+  include one for the original team, one for a team composed only of
+  good players, and one for a small team. The fourth one prints the
+  original team again. If you have coded your copy constructor and
+  overloaded assignment operator correctly, the last output should be
+  the same as the first.
+  </P>
+
+<p>Add the argument <code>ofstream& outFile</code>
+  to <code>PlayerDatabase::print_team</code> to handle this. You will
+  also have to make corresponding changes to
+  the <code>BaseballPlayer</code>, <code>Pitcher</code>
+  and <code>Hitter</code> classes.</p>
+
+<p>Write a member function <code>void create_good_team()</code> to
+  convert the team into a better one by removing all the players who
+  are not considered good. We will define a good pitcher as one with
+  an ERA less than or equal to 3.4950. We will define a good hitter as
+  one with as a batting average greater than or equal to .2795.</p>
+
+<p>Write a member function <code>void create_small_team()</code> to
+  convert the team into a smaller one by deleting the first four
+  players. Your code should work regardless of how many players are on
+  the team: 0, less than 4, exactly 4, or more than 4.</p>
+
+<p>Use suitable <code>vector</code> functions for each of these.
+
+<p>If there are no pitchers or hitters available to calculate a team
+  average, print "n/a".</p>
+
+<p>Remember that the elements of <code>team</code> are pointers,
+  so you must delete the <code>BaseballPlayer</code> objects in
+  addition to removing the undesired elements from the vector.
+</p>
+
+
+<H3>File name entered as command-line arguments</H3>
+
+<P>You will execute your program as</P>
+
+<PRE>
+./hw2.exe xyz
+</PRE>
+
+<p>where <code>xyz</code> is the prefix for your files.</p>
+
+<p>The driver will call a function with signature</p>
+
+<pre>
+void create_names(int argc, char* argv[], string& iFileName,
+    string& oFileNameAll, string& oFileNameGood, string& oFileNameSmall,
+    string& oFileNameRepeat);
+</pre>
+
+to create the names for all of the files.</p>
+
+<p>If the input name is <code>xyz</code>, the input will
+  be <code>xyz.txt</code>. Build the output names
+as <code>xyz_output_all.txt</code>, <code>xyz_output_good.txt</code>,
+<code>xyz_output_small.txt</code>
+and <code>xyz_output_repeat.txt</code>.</p>
+
+<p>You can use the overloaded '+' operator to concatenate two strings.
+
+<p>Write this function and include <code>create_names.h</code>
+and <code>create_names.cpp</code> in your makefile.</p>
+
+<H2>Submission</H2>
+
+<UL>
+
+<LI><P>You must have a makefile with a rule for compiling an object
+file for each source code file.  A linking rule should link all of
+your object files together to create one executable. The name of your
+final executable should be <CODE>hw2.exe</CODE>. You should also
+provide a "clean" rule.</P></LI>
+
+<LI><P>Use the same naming convention as previously for each class
+    and header.</LI>
+
+<LI>A driver program for testing your database can be found here:
+<A HREF="hw2.cpp">hw2.cpp</A><br>
+
+  A very short file that you may use for input can be found
+  here: <A HREF="mini.txt">mini.txt</A>.<br>
+
+  A moderately short file can be found
+  here: <A HREF="mid.txt">mid.txt</A>.<br>
+
+  A more realistic file can be found here:
+  <A HREF="full.txt">full.txt</A>.</p></LI>
+
+<LI>Your program must follow <i>all</i> the documentation standards listed on
+the course web site.</LI>
+
+<LI><P>As always, programs that do not compile on <KBD>turing</KBD>
+automatically receive 0 points.</P></LI>
+      
+<LI><P>Submit your project using mailprog.340.  Submit the 10 files
+    you have written files (5 *.h and 5 *.cpp) plus your makefile.</P></LI>
+
+</UL>
+
+</BODY>
+</HTML>
