@@ -1,5 +1,0 @@
-"This" "line" "has" "too" ""many"" "q"u"o"t"e"s", and so does 'this' 'one'.
-
-Don't remove apostrophes, I heard, when I went to a party at the Jones'.
-
-In Europe they write 6,0 and 6,6 where we write 6.0 and 6.6.

@@ -1,4 +1,0 @@
-Adkins,Jon Adkins,Jon 72 200 R 5 9.333
-Alomar,Roberto Alomar,Roberto 72 185 S 64 253
-Borchard,Joe Borchard,Joe 77 220 S 9 49
-Buehrle,Mark Buehrle,Mark 74 200 L 106 230.333
