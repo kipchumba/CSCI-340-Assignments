@@ -1,0 +1,450 @@
+Initializing team_count = 0
+Loading player data...
+
+Loading member 1
+Loading member 2
+Loading member 3
+Loading member 4
+Loading member 5
+Loading member 6
+Loading member 7
+Loading member 8
+Loading member 9
+Loading member 10
+Loading member 11
+Loading member 12
+Loading member 13
+Loading member 14
+Loading member 15
+Loading member 16
+Loading member 17
+Loading member 18
+Loading member 19
+Loading member 20
+Loading member 21
+Loading member 22
+Loading member 23
+Loading member 24
+Loading member 25
+Loading member 26
+Loading member 27
+Loading member 28
+Loading member 29
+Loading member 30
+Loading member 31
+Loading member 32
+Loading member 33
+Loading member 34
+Loading member 35
+Loading member 36
+Loading member 37
+Loading member 38
+Loading member 39
+Loading member 40
+Printing player data...
+
+About to print 40 members
+Member 0:
+Pitcher -
+Name: Adkins,Jon
+Height: 72
+Weight: 200
+Throws: R
+Earned Runs: 5
+Innings Pitched: 9.333
+ERA: 4.82
+
+Member 1:
+Hitter -
+Name: Alomar,Roberto
+Height: 72
+Weight: 185
+Bats: S
+Hits: 64
+At Bats: 253
+Batting Average: 0.253
+
+Member 2:
+Hitter -
+Name: Alomar,Sandy
+Height: 77
+Weight: 215
+Bats: R
+Hits: 52
+At Bats: 194
+Batting Average: 0.268
+
+Member 3:
+Hitter -
+Name: Borchard,Joe
+Height: 77
+Weight: 220
+Bats: S
+Hits: 9
+At Bats: 49
+Batting Average: 0.184
+
+Member 4:
+Pitcher -
+Name: Buehrle,Mark
+Height: 74
+Weight: 200
+Throws: L
+Earned Runs: 106
+Innings Pitched: 230.333
+ERA: 4.14
+
+Member 5:
+Hitter -
+Name: Burke,Jamie
+Height: 72
+Weight: 195
+Bats: R
+Hits: 3
+At Bats: 8
+Batting Average: 0.375
+
+Member 6:
+Pitcher -
+Name: Colon,Bartolo
+Height: 72
+Weight: 185
+Throws: R
+Earned Runs: 104
+Innings Pitched: 242.000
+ERA: 3.87
+
+Member 7:
+Pitcher -
+Name: Cotts,Neal
+Height: 74
+Weight: 200
+Throws: L
+Earned Runs: 12
+Innings Pitched: 13.333
+ERA: 8.10
+
+Member 8:
+Hitter -
+Name: Crede,Joe
+Height: 74
+Weight: 195
+Bats: R
+Hits: 140
+At Bats: 536
+Batting Average: 0.261
+
+Member 9:
+Hitter -
+Name: Daubach,Brian
+Height: 73
+Weight: 201
+Bats: L
+Hits: 42
+At Bats: 183
+Batting Average: 0.230
+
+Member 10:
+Hitter -
+Name: Everett,Carl
+Height: 72
+Weight: 190
+Bats: S
+Hits: 77
+At Bats: 256
+Batting Average: 0.301
+
+Member 11:
+Pitcher -
+Name: Garland,Jon
+Height: 78
+Weight: 205
+Throws: R
+Earned Runs: 96
+Innings Pitched: 191.667
+ERA: 4.51
+
+Member 12:
+Pitcher -
+Name: Ginter,Matt
+Height: 73
+Weight: 220
+Throws: R
+Earned Runs: 5
+Innings Pitched: 3.333
+ERA: 13.50
+
+Member 13:
+Pitcher -
+Name: Glover,Gary
+Height: 77
+Weight: 205
+Throws: R
+Earned Runs: 18
+Innings Pitched: 35.667
+ERA: 4.54
+
+Member 14:
+Pitcher -
+Name: Gordon,Tom
+Height: 69
+Weight: 180
+Throws: R
+Earned Runs: 26
+Innings Pitched: 74.000
+ERA: 3.16
+
+Member 15:
+Hitter -
+Name: Graffanino,Tony
+Height: 73
+Weight: 175
+Bats: R
+Hits: 65
+At Bats: 250
+Batting Average: 0.260
+
+Member 16:
+Hitter -
+Name: Harris,Willie
+Height: 69
+Weight: 175
+Bats: L
+Hits: 28
+At Bats: 137
+Batting Average: 0.204
+
+Member 17:
+Hitter -
+Name: Jimenez,D'Angelo
+Height: 72
+Weight: 194
+Bats: S
+Hits: 69
+At Bats: 271
+Batting Average: 0.255
+
+Member 18:
+Pitcher -
+Name: Koch,Billy
+Height: 75
+Weight: 205
+Throws: R
+Earned Runs: 34
+Innings Pitched: 53.000
+ERA: 5.77
+
+Member 19:
+Hitter -
+Name: Konerko,Paul
+Height: 75
+Weight: 205
+Bats: R
+Hits: 104
+At Bats: 444
+Batting Average: 0.234
+
+Member 20:
+Hitter -
+Name: Lee,Carlos
+Height: 72
+Weight: 235
+Bats: R
+Hits: 181
+At Bats: 623
+Batting Average: 0.291
+
+Member 21:
+Pitcher -
+Name: Loaiza,Esteban
+Height: 76
+Weight: 190
+Throws: R
+Earned Runs: 73
+Innings Pitched: 226.333
+ERA: 2.90
+
+Member 22:
+Pitcher -
+Name: Marte,Damaso
+Height: 72
+Weight: 170
+Throws: L
+Earned Runs: 14
+Innings Pitched: 79.667
+ERA: 1.58
+
+Member 23:
+Hitter -
+Name: Miles,Aaron
+Height: 68
+Weight: 170
+Bats: S
+Hits: 4
+At Bats: 12
+Batting Average: 0.333
+
+Member 24:
+Hitter -
+Name: Olivo,Miguel
+Height: 72
+Weight: 180
+Bats: R
+Hits: 75
+At Bats: 317
+Batting Average: 0.237
+
+Member 25:
+Hitter -
+Name: Ordonez,Magglio
+Height: 71
+Weight: 170
+Bats: R
+Hits: 192
+At Bats: 606
+Batting Average: 0.317
+
+Member 26:
+Pitcher -
+Name: Paniagua,Jose
+Height: 74
+Weight: 185
+Throws: R
+Earned Runs: 4
+Innings Pitched: 0.333
+ERA: 108.11
+
+Member 27:
+Hitter -
+Name: Paul,Josh
+Height: 73
+Weight: 200
+Bats: R
+Hits: 6
+At Bats: 17
+Batting Average: 0.353
+
+Member 28:
+Pitcher -
+Name: Porzio,Mike
+Height: 75
+Weight: 190
+Throws: L
+Earned Runs: 10
+Innings Pitched: 14.000
+ERA: 6.43
+
+Member 29:
+Hitter -
+Name: Rios,Armando
+Height: 69
+Weight: 185
+Bats: L
+Hits: 22
+At Bats: 104
+Batting Average: 0.212
+
+Member 30:
+Hitter -
+Name: Rowand,Aaron
+Height: 73
+Weight: 200
+Bats: R
+Hits: 45
+At Bats: 157
+Batting Average: 0.287
+
+Member 31:
+Pitcher -
+Name: Sanders,David
+Height: 72
+Weight: 200
+Throws: L
+Earned Runs: 15
+Innings Pitched: 22.000
+ERA: 6.14
+
+Member 32:
+Pitcher -
+Name: Schoeneweis,Scott
+Height: 72
+Weight: 185
+Throws: L
+Earned Runs: 70
+Innings Pitched: 112.667
+ERA: 5.59
+
+Member 33:
+Pitcher -
+Name: Stewart,Josh
+Height: 75
+Weight: 205
+Throws: L
+Earned Runs: 17
+Innings Pitched: 25.667
+ERA: 5.96
+
+Member 34:
+Pitcher -
+Name: Sullivan,Scott
+Height: 75
+Weight: 210
+Throws: R
+Earned Runs: 6
+Innings Pitched: 14.333
+ERA: 3.77
+
+Member 35:
+Hitter -
+Name: Thomas,Frank
+Height: 77
+Weight: 257
+Bats: R
+Hits: 146
+At Bats: 546
+Batting Average: 0.267
+
+Member 36:
+Hitter -
+Name: Valentin,Jose
+Height: 70
+Weight: 175
+Bats: S
+Hits: 119
+At Bats: 503
+Batting Average: 0.237
+
+Member 37:
+Pitcher -
+Name: White,Rick
+Height: 76
+Weight: 215
+Throws: R
+Earned Runs: 35
+Innings Pitched: 47.667
+ERA: 6.61
+
+Member 38:
+Pitcher -
+Name: Wright,Danny
+Height: 77
+Weight: 225
+Throws: R
+Earned Runs: 59
+Innings Pitched: 86.333
+ERA: 6.15
+
+Member 39:
+Pitcher -
+Name: Wunsch,Kelly
+Height: 77
+Weight: 225
+Throws: L
+Earned Runs: 11
+Innings Pitched: 36.000
+ERA: 2.75
+
+
+Team ERA: 4.270
+Team Batting Average: 0.264
+Done
